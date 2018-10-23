@@ -93,14 +93,175 @@ class MapaViewController: UIViewController {
         })
     }
     
+    func deuMerdaLinha(nomeArquivo: String) {
+        PathCoordenadas.mutablePathtoPolyline(nomeArquivo: nomeArquivo) { (path) in
+            let polyline = GMSPolyline(path: path)
+            let styles = [GMSStrokeStyle.solidColor(.yellow), GMSStrokeStyle.solidColor(.black)]
+            let lengths: [NSNumber] = [50, 50]
+            polyline.spans = GMSStyleSpans(polyline.path!, styles, lengths, .rhumb)
+            polyline.strokeWidth = 4
+            polyline.map = self.mapaGMSView
+        }
+        
+    }
+    
+    func deuMerdaBotao() {
+        
+        let deuMerdaButton = UIButton(type: .custom)
+        deuMerdaButton.setTitle("Deu Merda", for: .normal)
+        deuMerdaButton.backgroundColor = UIColor.black
+        deuMerdaButton.rx.tap
+            .bind {
+                self.deuMerdaLinha(nomeArquivo: "deuMerda")
+                self.calcularDistancia()
+            }
+            .disposed(by: disposeBag)
+//        self.view.addConstraints([NSLayoutConstraint(item: deuMerdaButton,
+//                                                     attribute: .height,
+//                                                     relatedBy: .equal,
+//                                                     toItem: self.view,
+//                                                     attribute: .width,
+//                                                     multiplier: (65 / 45),
+//                                                     constant: 0),
+//
+//                                  NSLayoutConstraint(item: deuMerdaButton,
+//                                                     attribute: .trailingMargin,
+//                                                     relatedBy: .equal,
+//                                                     toItem: self,
+//                                                     attribute: .trailingMargin,
+//                                                     multiplier: 1.0,
+//                                                     constant: 24),
+//                                  NSLayoutConstraint(item: deuMerdaButton,
+//                                                     attribute: .bottomMargin,
+//                                                     relatedBy: .equal,
+//                                                     toItem: self.view,
+//                                                     attribute: .bottomMargin,
+//                                                     multiplier: 1.0,
+//                                                     constant: 86)
+//
+//        ])
+        view.addSubview(deuMerdaButton)
+        deuMerdaButton.translatesAutoresizingMaskIntoConstraints = false
+        
+        let margins = view.layoutMarginsGuide
+
+        deuMerdaButton.trailingAnchor.constraint(equalTo: margins.trailingAnchor, constant: 0).isActive = true
+        deuMerdaButton.bottomAnchor.constraint(equalTo: margins.bottomAnchor, constant: -80.0).isActive = true
+        deuMerdaButton.heightAnchor.constraint(equalTo: deuMerdaButton.widthAnchor, multiplier: 1/1).isActive = true
+        
+    }
+    
+    func linhasJSONButton(){
+        let margins = view.layoutMarginsGuide
+//        let linhasButton = UIButton(frame: CGRect(x: 60, y: 180, width: 65, height: 65))
+        let linhasButton = UIButton(type: .custom)
+        linhasButton.setImage(UIImage(named: "subway"), for: .normal)
+        linhasButton.backgroundColor = UIColor.red
+        self.view.addSubview(linhasButton)
+        linhasButton.translatesAutoresizingMaskIntoConstraints = false
+        
+        linhasButton.leadingAnchor.constraint(equalTo: margins.leadingAnchor, constant: 0).isActive = true
+        linhasButton.bottomAnchor.constraint(equalTo: margins.bottomAnchor, constant: -50.0).isActive = true
+        linhasButton.trailingAnchor.constraint(equalTo: margins.trailingAnchor, constant: 0).isActive = true
+//        linhasButton.topAnchor.constraint(equalTo: margins.topAnchor, constant: 500.0).isActive = true
+        linhasButton.topAnchor.constraint(equalTo: margins.topAnchor, constant: 485.0).isActive = true
+        
+//        linhasButton.heightAnchor.constraint(equalTo: linhasButton.widthAnchor, multiplier: 1/1).isActive = true
+        
+        linhasButton.rx.tap
+            .bind {
+//                LinhasJSON.linhasJSON {
+//                    print("Tap")
+//                }
+                LinhasJSON.linhasJSON(linhasArray: { (latitudeArray, longitudeArray) in
+                    print(latitudeArray.count)
+                    let coresLinhas: Array<UIColor> = [
+                                                        UIColor(red: 255/255, green: 234/255, blue: 0, alpha: 1.0),//amarela
+                                                        UIColor(red: 0, green: 0, blue: 128/255, alpha: 1.0),//azul
+                                                        UIColor(red: 158/255, green: 158/255, blue: 158/255, alpha: 1.0),//diamante
+                                                        UIColor(red: 0, green: 151/255, blue: 167/255, alpha: 1.0),//esmeralda
+                                                        UIColor(red: 155/255, green: 56/255, blue: 148/255, alpha: 1.0),//lilas
+                                                        UIColor(red: 162/255, green: 169/255, blue: 177/255, alpha: 1.0),//prata
+                                                        UIColor(red: 155/255, green: 56/255, blue: 148/255, alpha: 1.0),//rubi
+                                                        UIColor(red: 40/255, green: 53/255, blue: 147/255, alpha: 1.0), //safira
+                                                        UIColor(red: 0, green: 172, blue: 193/255, alpha: 1.0),//turquesa
+                                                        UIColor(red: 0, green: 121/255, blue: 107/255, alpha: 1.0), //verde
+                                                        UIColor(red: 204/255, green: 0, blue: 0, alpha: 1.0) //vermelha
+                                                    ]
+                    for i in 0 ... (latitudeArray.count - 1) {
+                        let path = GMSMutablePath()
+//                        print(latitudeArray.count)
+//                        print(latitudeArray[i])
+                        for j in 0 ... (latitudeArray[i].count - 1) {
+                            path.add(CLLocationCoordinate2D(latitude: latitudeArray[i][j], longitude: longitudeArray[i][j]))
+                        }
+//
+                        let polyline = GMSPolyline(path: path)
+                        polyline.strokeColor = coresLinhas[i]
+                        polyline.strokeWidth = 3
+                        polyline.map = self.mapaGMSView
+                    }
+                    
+//                    let path = GMSMutablePath()
+//                    print(latitude.count)
+//                    for i in 0 ... (latitude.count - 1) {
+//                        path.add(CLLocationCoordinate2D(latitude: latitude[i], longitude: longitude[i]))
+//                    }
+//
+//                    let polyline = GMSPolyline(path: path)
+//                    polyline.strokeColor = UIColor.black
+//                    polyline.strokeWidth = 4
+//                    polyline.map = self.mapaGMSView
+                    
+                })
+//                LinhaJSON.coordenadas()
+            }
+            .disposed(by: disposeBag)
+        
+    }
+    
+    func markerEstacoes() {
+        MarkerEstacoes.markerArray(markers: { (markers) in
+            for marker in markers {
+                marker.map = self.mapaGMSView
+                
+            }
+        })
+        
+    }
+    
+    func overlayEstacoes() {
+        
+        EstacoesGroundOverlays.estacoesGround { (overlay) in
+            overlay.map = self.mapaGMSView
+            overlay.isTappable = true
+        }
+        
+    }
+    
+    func  calcularDistancia() {
+        let dist1 = CLLocation(latitude: latitude, longitude: longitude)
+        print(latitude)
+        let dist2 = CLLocation(latitude: -23.544375, longitude: -46.642815)
+        let distancia = dist1.distance(from: dist2)
+        print(distancia)
+        
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        calcularDistancia()
         
         atualizaTela()
         configuracaoTapRx()
         atualizaGPS()
         gpsRx()
-        atualizaLinhaAzul()
+//        atualizaLinhaAzul()
+//        deuMerdaBotao()
+//        markerEstacoes()
+//        overlayEstacoes()
+        linhasJSONButton()
         // Do any additional setup after loading the view.
     }
     

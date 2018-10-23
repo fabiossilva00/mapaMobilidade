@@ -2,4 +2,374 @@
 <Bucket
    type = "0"
    version = "2.0">
+   <Breakpoints>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "mapaMobilidade/JSONs/JSONLinhas/LinhasJSON.swift"
+            timestampString = "561995843.8233041"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "45"
+            endingLineNumber = "45"
+            landmarkName = "linhasJSON(linhasArray:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "mapaMobilidade/JSONs/JSONLinhas/LinhasJSON.swift"
+            timestampString = "561995843.82338"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "46"
+            endingLineNumber = "46"
+            landmarkName = "linhasJSON(linhasArray:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "mapaMobilidade/JSONs/JSONLinhas/LinhasJSON.swift"
+            timestampString = "561995843.823436"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "47"
+            endingLineNumber = "47"
+            landmarkName = "linhasJSON(linhasArray:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "mapaMobilidade/JSONs/JSONLinhas/LinhasJSON.swift"
+            timestampString = "561995843.823487"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "49"
+            endingLineNumber = "49"
+            landmarkName = "linhasJSON(linhasArray:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "mapaMobilidade/JSONs/JSONLinhas/LinhasJSON.swift"
+            timestampString = "561995843.823537"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "48"
+            endingLineNumber = "48"
+            landmarkName = "linhasJSON(linhasArray:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "mapaMobilidade/JSONs/JSONLinhas/LinhasJSON.swift"
+            timestampString = "561995843.8235869"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "51"
+            endingLineNumber = "51"
+            landmarkName = "linhasJSON(linhasArray:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "static mapaMobilidade.LinhasJSON.linhasJSON(linhasArray: (Swift.Array&lt;Swift.Array&lt;Swift.Double&gt;&gt;, Swift.Array&lt;Swift.Array&lt;Swift.Double&gt;&gt;) -&gt; ()) -&gt; ()"
+                  moduleName = "mapaMobilidade"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/fabio.ssilva/Documents/Git/mapaMobilidade/mapaMobilidade/JSONs/JSONLinhas/LinhasJSON.swift"
+                  timestampString = "561990689.518544"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "51"
+                  endingLineNumber = "51"
+                  offsetFromSymbolStart = "1892">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (SwiftyJSON.JSON) -&gt; Swift.Array&lt;Swift.Double&gt; in static mapaMobilidade.LinhasJSON.linhasJSON(linhasArray: (Swift.Array&lt;Swift.Array&lt;Swift.Double&gt;&gt;, Swift.Array&lt;Swift.Array&lt;Swift.Double&gt;&gt;) -&gt; ()) -&gt; ()"
+                  moduleName = "mapaMobilidade"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/fabio.ssilva/Documents/Git/mapaMobilidade/mapaMobilidade/JSONs/JSONLinhas/LinhasJSON.swift"
+                  timestampString = "561990689.520817"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "52"
+                  endingLineNumber = "52"
+                  offsetFromSymbolStart = "36">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "mapaMobilidade/JSONs/JSONLinhas/LinhasJSON.swift"
+            timestampString = "561995843.823635"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "52"
+            endingLineNumber = "52"
+            landmarkName = "linhasJSON(linhasArray:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (SwiftyJSON.JSON) -&gt; Swift.Array&lt;Swift.Double&gt; in static mapaMobilidade.LinhasJSON.linhasJSON(linhasArray: (Swift.Array&lt;Swift.Array&lt;Swift.Double&gt;&gt;, Swift.Array&lt;Swift.Array&lt;Swift.Double&gt;&gt;) -&gt; ()) -&gt; ()"
+                  moduleName = "mapaMobilidade"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/fabio.ssilva/Documents/Git/mapaMobilidade/mapaMobilidade/JSONs/JSONLinhas/LinhasJSON.swift"
+                  timestampString = "561990690.026685"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "52"
+                  endingLineNumber = "52"
+                  offsetFromSymbolStart = "36">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (Swift.String, SwiftyJSON.JSON) -&gt; Swift.Double in closure #1 (SwiftyJSON.JSON) -&gt; Swift.Array&lt;Swift.Double&gt; in static mapaMobilidade.LinhasJSON.linhasJSON(linhasArray: (Swift.Array&lt;Swift.Array&lt;Swift.Double&gt;&gt;, Swift.Array&lt;Swift.Array&lt;Swift.Double&gt;&gt;) -&gt; ()) -&gt; ()"
+                  moduleName = "mapaMobilidade"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/fabio.ssilva/Documents/Git/mapaMobilidade/mapaMobilidade/JSONs/JSONLinhas/LinhasJSON.swift"
+                  timestampString = "561990690.029487"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "53"
+                  endingLineNumber = "53"
+                  offsetFromSymbolStart = "56">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "mapaMobilidade/JSONs/JSONLinhas/LinhasJSON.swift"
+            timestampString = "561995843.8236851"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "53"
+            endingLineNumber = "53"
+            landmarkName = "linhasJSON(linhasArray:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "mapaMobilidade/JSONs/JSONLinhas/LinhasJSON.swift"
+            timestampString = "561995843.823734"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "55"
+            endingLineNumber = "55"
+            landmarkName = "linhasJSON(linhasArray:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "mapaMobilidade/JSONs/JSONLinhas/LinhasJSON.swift"
+            timestampString = "561995843.823783"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "54"
+            endingLineNumber = "54"
+            landmarkName = "linhasJSON(linhasArray:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "mapaMobilidade/JSONs/JSONLinhas/LinhasJSON.swift"
+            timestampString = "561995843.8238389"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "56"
+            endingLineNumber = "56"
+            landmarkName = "linhasJSON(linhasArray:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "mapaMobilidade/JSONs/JSONLinhas/LinhasJSON.swift"
+            timestampString = "561995843.823884"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "97"
+            endingLineNumber = "97"
+            landmarkName = "linhasJSON(linhasArray:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "mapaMobilidade/JSONs/JSONLinhas/LinhasJSON.swift"
+            timestampString = "561995843.823929"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "98"
+            endingLineNumber = "98"
+            landmarkName = "linhasJSON(linhasArray:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "mapaMobilidade/JSONs/JSONLinhas/LinhasJSON.swift"
+            timestampString = "561995843.823975"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "99"
+            endingLineNumber = "99"
+            landmarkName = "linhasJSON(linhasArray:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "mapaMobilidade/JSONs/JSONLinhas/LinhasJSON.swift"
+            timestampString = "561995843.824019"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "100"
+            endingLineNumber = "100"
+            landmarkName = "linhasJSON(linhasArray:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "mapaMobilidade/JSONs/JSONLinhas/LinhasJSON.swift"
+            timestampString = "561995843.824065"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "101"
+            endingLineNumber = "101"
+            landmarkName = "linhasJSON(linhasArray:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "mapaMobilidade/JSONs/JSONLinhas/LinhasJSON.swift"
+            timestampString = "561995843.82411"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "50"
+            endingLineNumber = "50"
+            landmarkName = "linhasJSON(linhasArray:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "static mapaMobilidade.LinhasJSON.linhasJSON(linhasArray: (Swift.Array&lt;Swift.Array&lt;Swift.Double&gt;&gt;, Swift.Array&lt;Swift.Array&lt;Swift.Double&gt;&gt;) -&gt; ()) -&gt; ()"
+                  moduleName = "mapaMobilidade"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/fabio.ssilva/Documents/Git/mapaMobilidade/mapaMobilidade/JSONs/JSONLinhas/LinhasJSON.swift"
+                  timestampString = "561990833.158017"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "51"
+                  endingLineNumber = "51"
+                  offsetFromSymbolStart = "1892">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (SwiftyJSON.JSON) -&gt; Swift.Array&lt;Swift.Double&gt; in static mapaMobilidade.LinhasJSON.linhasJSON(linhasArray: (Swift.Array&lt;Swift.Array&lt;Swift.Double&gt;&gt;, Swift.Array&lt;Swift.Array&lt;Swift.Double&gt;&gt;) -&gt; ()) -&gt; ()"
+                  moduleName = "mapaMobilidade"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/fabio.ssilva/Documents/Git/mapaMobilidade/mapaMobilidade/JSONs/JSONLinhas/LinhasJSON.swift"
+                  timestampString = "561990833.160851"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "52"
+                  endingLineNumber = "52"
+                  offsetFromSymbolStart = "36">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+   </Breakpoints>
 </Bucket>

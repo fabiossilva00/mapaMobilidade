@@ -56,7 +56,7 @@
     ]
   },
   {
-    "featureType": "transit.station.airport",
+    "featureType": "poi.park",
     "stylers": [
       {
         "visibility": "off"
@@ -64,7 +64,7 @@
     ]
   },
   {
-    "featureType": "transit.station.rail",
+    "featureType": "transit.station.airport",
     "stylers": [
       {
         "visibility": "off"

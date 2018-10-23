@@ -1,0 +1,188 @@
+{
+  "estacoes": [
+                {
+                  "nome": "Tucuruvi",
+                  "coordenadas":
+                    [
+                      -23.480049,
+                      -46.603209
+                    ]
+                },
+                {
+                  "nome": "Parada Inglesa",
+                  "coordenadas":
+                    [
+                      -23.487111,
+                      -46.608877
+                    ]
+                },
+                {
+                  "nome": "Jardim São Paulo-Ayrton Senna",
+                  "coordenadas":
+                    [
+                      -23.492233,
+                      -46.616687
+                    ]
+                },
+                {
+                  "nome": "Santana",
+                  "coordenadas":
+                    [
+                      -23.502724,
+                      -46.624716
+                    ]
+                },
+                {
+                  "nome": "Carandiru",
+                  "coordenadas":
+                    [
+                      -23.509654,
+                      -46.624910
+                    ]
+                },
+                {
+                  "nome": "Portuguesa-Tietê",
+                  "coordenadas":
+                    [
+                      -23.516587,
+                      -46.625123
+                    ]
+                },
+                {
+                  "nome": "Armênia",
+                  "coordenadas":
+                    [
+                      -23.525545,
+                      -46.629317
+                    ]
+                },
+                {
+                  "nome": "Tiradentes",
+                  "coordenadas":
+                    [
+                      -23.530857,
+                      -46.631959
+                    ]
+                },
+                {
+                  "nome": "Luz",
+                  "coordenadas":
+                    [
+                      -23.537691,
+                      -46.633687
+                    ]
+                },
+                {
+                  "nome": "São Bento",
+                  "coordenadas":
+                    [
+                      -23.543959,
+                      -46.633788
+                    ]
+                },
+                {
+                  "nome": "Sé",
+                  "coordenadas":
+                    [
+                      -23.550634,
+                      -46.633326
+                    ]
+                },
+                {
+                  "nome": "Liberdade",
+                  "coordenadas":
+                    [
+                      -23.554724,
+                      -46.635598
+                    ]
+                },
+                {
+                  "nome": "São Joaquim",
+                  "coordenadas":
+                    [
+                      -23.561912,
+                      -46.638652
+                    ]
+                },
+                {
+                  "nome": "Vergueiro",
+                  "coordenadas":
+                    [
+                      -23.568994,
+                      -46.639858
+                    ]
+                },
+                {
+                  "nome": "Paraíso",
+                  "coordenadas":
+                    [
+                      -23.574932,
+                      -46.640563
+                    ]
+                },
+                {
+                  "nome": "Ana Rosa",
+                  "coordenadas":
+                    [
+                      -23.581376,
+                      -46.638388
+                    ]
+                },
+                {
+                  "nome": "Vila Mariana",
+                  "coordenadas":
+                    [
+                    -23.589535,
+                    -46.634701
+                    ]
+                },
+                {
+                  "nome": "Santa Cruz",
+                  "coordenadas":
+                    [
+                    -23.598710,
+                    -46.636650
+                    ]
+                },
+                {
+                  "nome": "Praça Da Árvore",
+                  "coordenadas":
+                    [
+                    -23.610578,
+                    -46.637848
+                    ]
+                },
+                {
+                  "nome": "Saúde",
+                  "coordenadas":
+                    [
+                    -23.618285,
+                    -46.639148
+                    ]
+                },
+                {
+                  "nome": "São Judas",
+                  "coordenadas":
+                    [
+                    -23.625580,
+                    -46.640778
+                    ]
+                },
+                {
+                  "nome": "Conceição",
+                  "coordenadas":
+                    [
+                    -23.636214,
+                    -46.641141
+                    ]
+                },
+                {
+                  "nome": "Jabaquara",
+                  "coordenadas":
+                    [
+                    -23.645754,
+                    -46.642084
+                    ]
+                }
+              ]
+}
