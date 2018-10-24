@@ -41,6 +41,8 @@
 		F2F7480E217E5AA0007A4133 /* linha_amarela.json in Resources */ = {isa = PBXBuildFile; fileRef = F2F7480D217E5AA0007A4133 /* linha_amarela.json */; };
 		F2F74814217F4A41007A4133 /* linha_turquesa.json in Resources */ = {isa = PBXBuildFile; fileRef = F2F74813217F4A41007A4133 /* linha_turquesa.json */; };
 		F2F74816217F4E1D007A4133 /* linha_lilas.json in Resources */ = {isa = PBXBuildFile; fileRef = F2F74815217F4E1D007A4133 /* linha_lilas.json */; };
+		F2F748192180C007007A4133 /* linha_jade.json in Resources */ = {isa = PBXBuildFile; fileRef = F2F748182180C007007A4133 /* linha_jade.json */; };
+		F2F7481D2180D87A007A4133 /* Alamofire.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2F7481C2180D87A007A4133 /* Alamofire.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -81,6 +83,8 @@
 		F2F7480D217E5AA0007A4133 /* linha_amarela.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = linha_amarela.json; sourceTree = "<group>"; };
 		F2F74813217F4A41007A4133 /* linha_turquesa.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = linha_turquesa.json; sourceTree = "<group>"; };
 		F2F74815217F4E1D007A4133 /* linha_lilas.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = linha_lilas.json; sourceTree = "<group>"; };
+		F2F748182180C007007A4133 /* linha_jade.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = linha_jade.json; sourceTree = "<group>"; };
+		F2F7481C2180D87A007A4133 /* Alamofire.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alamofire.swift; sourceTree = "<group>"; };
 		F40338F0A220A8D5EFCDE91C /* Pods_mapaMobilidade.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_mapaMobilidade.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -154,6 +158,7 @@
 		F2EE8450217625E5009AB8A8 /* Mapas */ = {
 			isa = PBXGroup;
 			children = (
+				F2F7481A2180D846007A4133 /* Alamofire */,
 				F2EE84782177999D009AB8A8 /* PathToPolyline */,
 				F2EE847721779986009AB8A8 /* MarkerEstacoes */,
 				F29CAA2F21760B7000EC6BD5 /* MapaViewController.swift */,
@@ -171,6 +176,7 @@
 				F239E77E2179267B009E8C95 /* linha_azul.json */,
 				F239E77D2179267B009E8C95 /* linha_diamante.json */,
 				F239E77C2179267B009E8C95 /* linha_esmeralda.json */,
+				F2F748182180C007007A4133 /* linha_jade.json */,
 				F2F74815217F4E1D007A4133 /* linha_lilas.json */,
 				F239E77F2179267B009E8C95 /* linha_prata.json */,
 				F2F74809217E5821007A4133 /* linha_rubi.json */,
@@ -234,6 +240,14 @@
 				F2EE845A217659B6009AB8A8 /* PathCoordenadas.swift */,
 			);
 			path = PathToPolyline;
+			sourceTree = "<group>";
+		};
+		F2F7481A2180D846007A4133 /* Alamofire */ = {
+			isa = PBXGroup;
+			children = (
+				F2F7481C2180D87A007A4133 /* Alamofire.swift */,
+			);
+			path = Alamofire;
 			sourceTree = "<group>";
 		};
 		FE0B404D1F2A6F5421EDFDB4 /* Frameworks */ = {
@@ -321,6 +335,7 @@
 				F29CAA1E2176070800EC6BD5 /* Assets.xcassets in Resources */,
 				F29CAA1C217606FA00EC6BD5 /* Main.storyboard in Resources */,
 				F239E7832179267C009E8C95 /* linha_esmeralda.json in Resources */,
+				F2F748192180C007007A4133 /* linha_jade.json in Resources */,
 				F239E7882179267C009E8C95 /* linha_safira.json in Resources */,
 				F239E7862179267C009E8C95 /* linha_prata.json in Resources */,
 			);
@@ -408,6 +423,7 @@
 				F2EE845B217659B6009AB8A8 /* PathCoordenadas.swift in Sources */,
 				F2EE845621764CF6009AB8A8 /* LinhasJSON.swift in Sources */,
 				F29CAA2E2176086500EC6BD5 /* GeoLocationService.swift in Sources */,
+				F2F7481D2180D87A007A4133 /* Alamofire.swift in Sources */,
 				F29CAA19217606FA00EC6BD5 /* ViewController.swift in Sources */,
 				F2EE846D21768127009AB8A8 /* JSONDeuMerda.swift in Sources */,
 				F2EE846021766CEC009AB8A8 /* StyleMap.swift in Sources */,

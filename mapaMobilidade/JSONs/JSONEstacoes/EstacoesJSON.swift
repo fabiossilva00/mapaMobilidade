@@ -22,15 +22,15 @@ class EstacoesJSON {
             let nomeArray = swiftJSONData["estacoes"].arrayValue.map({
                 $0["nome"].stringValue
             })
-            print(nomeArray)
+//            print(nomeArray)
             let latitudeArray = swiftJSONData["estacoes"].arrayValue.map({
                 $0["coordenadas"][0].doubleValue
             })
-            print(latitudeArray)
+//            print(latitudeArray)
             let longitudeArray = swiftJSONData["estacoes"].arrayValue.map({
                 $0["coordenadas"][1].doubleValue
             })
-            print(longitudeArray)
+//            print(longitudeArray)
             
             estacoes(nomeArray, latitudeArray, longitudeArray)
         } catch {
