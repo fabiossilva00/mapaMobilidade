@@ -22,9 +22,17 @@ class MapaViewController: UIViewController, GMSMapViewDelegate {
     @IBOutlet weak var mapaGMSView: GMSMapView!
     
     @IBOutlet var markerView: UIView!
+//    @IBOutlet weak var nomeEstacaoLabel: UILabel!
     @IBOutlet weak var nomeEstacaoLabel: UILabel!
     @IBOutlet weak var latitudeEstacaoLabel: UILabel!
     @IBOutlet weak var longitudeEstacaoLabel: UILabel!
+    
+    @IBOutlet var votoView: UIView!
+    @IBOutlet weak var dislikeButton: UIButton!
+    @IBOutlet weak var likeButton: UIButton!
+    @IBOutlet weak var closeButton: UIButton!
+    @IBOutlet weak var estacaoLabel: UILabel!
+    @IBOutlet weak var linhaLabel: UILabel!
     
     private let geoLocationService = GeolocationService.instance
     var disposeBag = DisposeBag()
@@ -124,7 +132,6 @@ class MapaViewController: UIViewController, GMSMapViewDelegate {
         deuMerdaButton.rx.tap
             .bind {
                 self.deuMerdaLinha(nomeArquivo: "deuMerda")
-                self.calcularDistancia()
             }
             .disposed(by: disposeBag)
 //        self.view.addConstraints([NSLayoutConstraint(item: deuMerdaButton,
@@ -260,16 +267,24 @@ class MapaViewController: UIViewController, GMSMapViewDelegate {
         
     }
     
-    func  calcularDistancia() {
+    func  calcularDistancia(localizacao: CLLocationCoordinate2D) -> Double {
         let dist1 = CLLocation(latitude: latitude, longitude: longitude)
         print(latitude)
-        let dist2 = CLLocation(latitude: -23.544375, longitude: -46.642815)
+        let dist2 = CLLocation(latitude: localizacao.latitude, longitude: localizacao.longitude)
         let distancia = dist1.distance(from: dist2)
-        print(distancia)
+        print(distancia.rounded(.up))
         
+        return distancia.rounded(.down)
     }
     
-//    let geocoder = GMSGeocoder()
+    func alertaDistancia(localizacao: CLLocationCoordinate2D) -> UIAlertController {
+        
+        let alerta = UIAlertController(title: "Distacia", message: "\(self.calcularDistancia(localizacao: localizacao))", preferredStyle: .alert)
+        let cancel = UIAlertAction(title: "Ok", style: .destructive, handler: nil)
+        alerta.addAction(cancel)
+        
+        return alerta
+    }
     
     func mapView(_ mapView: GMSMapView, willMove gesture: Bool) {
         
@@ -332,22 +347,77 @@ class MapaViewController: UIViewController, GMSMapViewDelegate {
 //        return markerView
 //    }
     
+    func closePopUp(){
+        closeButton.rx.tap
+            .bind {
+                self.votoView.removeFromSuperview()
+            }
+            .disposed(by: disposeBag)
+    }
+    
+    func calculaDistanciaSaidas() {
+        let saidasRepublica =   [
+                                    [-23.54374186150479, -46.64389103651047],
+                                    [-23.543026311055478, -46.64396882057189],
+                                    [-23.543990213156004, -46.64274305105209],
+                                    [-23.544196762686873, -46.64252310991287],
+                                    [-23.54391644538778, -46.6420966386795],
+                                    [-23.544375, -46.642815]
+                                ]
+    
+        let localizacaoAtual = CLLocation(latitude: geoLocationService.locationManager.location?.coordinate.latitude ?? latitude, longitude: geoLocationService.locationManager.location?.coordinate.longitude ?? longitude)
+        for saida in saidasRepublica {
+            let distancia = localizacaoAtual.distance(from: CLLocation(latitude: saida[0], longitude: saida[1]))
+            print(distancia)
+            if distancia <= 11 {
+                print("Perto da estacao")
+                
+                break
+            }else{
+                print("Nao pode votar")
+            }
+            
+        }
+
+    }
+
     func mapView(_ mapView: GMSMapView, didTap marker: GMSMarker) -> Bool {
-        
+
         let margins = view.layoutMarginsGuide
+        print(marker.position.longitude)
+        UIView.animate(withDuration: 1.0, animations: {
+            let coordenadasCamera = CLLocationCoordinate2DMake(marker.position.latitude, marker.position.longitude)
+            let camera = GMSCameraPosition.camera(withTarget: coordenadasCamera, zoom: 16.0)
+            mapView.animate(to: camera)
+            
+        }, completion: { (finished) in
+            self.estacaoLabel.text = marker.title
+            self.linhaLabel.text = marker.snippet
+            
+            self.view.addSubview(self.votoView)
+            
+            self.votoView.layer.cornerRadius = 20.0
+            self.votoView.translatesAutoresizingMaskIntoConstraints = false
+            self.votoView.leadingAnchor.constraint(equalTo: margins.leadingAnchor, constant: -16).isActive = true
+            self.votoView.trailingAnchor.constraint(equalTo: margins.trailingAnchor, constant: 16).isActive = true
+            self.votoView.heightAnchor.constraint(equalTo: margins.widthAnchor, multiplier: 2.0/3.0).isActive = true
+            self.votoView.bottomAnchor.constraint(equalTo: margins.bottomAnchor, constant: -80.0).isActive = true
+            
+        })
         
-        nomeEstacaoLabel.text = marker.title
-        latitudeEstacaoLabel.text = "Latitude \(marker.position.latitude)"
-        longitudeEstacaoLabel.text = "Longitude \(marker.position.longitude)"
+//        let alerta = self.alertaDistancia(localizacao: CLLocationCoordinate2D(latitude: marker.position.latitude, longitude: marker.position.longitude))
+//      self.present(alerta, animated: true)
+//
+//        let coorde2D = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
+        calculaDistanciaSaidas()
         
-        self.view.addSubview(markerView)
-        
-        markerView.translatesAutoresizingMaskIntoConstraints = false
-        markerView.leadingAnchor.constraint(equalTo: margins.leadingAnchor, constant: 0).isActive = true
-        markerView.trailingAnchor.constraint(equalTo: margins.trailingAnchor, constant: 0).isActive = true
-        markerView.heightAnchor.constraint(equalTo: margins.widthAnchor, multiplier: 2.0/3.0).isActive = true
-        
+        closePopUp()
+
         return true
+    }
+    
+    func mapView(_ mapView: GMSMapView, didTapMyLocation location: CLLocationCoordinate2D) {
+        print(location)
     }
     
 //    func mapViewDidStartTileRendering(_ mapView: GMSMapView) {
@@ -362,8 +432,6 @@ class MapaViewController: UIViewController, GMSMapViewDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        calcularDistancia()
         
         atualizaTela()
         configuracaoTapRx()

@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		26ACD71159C6BFEF03933617 /* Pods_mapaMobilidade.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F40338F0A220A8D5EFCDE91C /* Pods_mapaMobilidade.framework */; };
+		79CBA65A2187711A004C31BE /* APIResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79CBA6592187711A004C31BE /* APIResponse.swift */; };
+		79D164CC21821C010092E549 /* Alerta.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79D164CB21821C010092E549 /* Alerta.swift */; };
 		F239E7822179267C009E8C95 /* linha_vermelha.json in Resources */ = {isa = PBXBuildFile; fileRef = F239E77B2179267A009E8C95 /* linha_vermelha.json */; };
 		F239E7832179267C009E8C95 /* linha_esmeralda.json in Resources */ = {isa = PBXBuildFile; fileRef = F239E77C2179267B009E8C95 /* linha_esmeralda.json */; };
 		F239E7842179267C009E8C95 /* linha_diamante.json in Resources */ = {isa = PBXBuildFile; fileRef = F239E77D2179267B009E8C95 /* linha_diamante.json */; };
@@ -47,6 +49,8 @@
 
 /* Begin PBXFileReference section */
 		0BB41404A4D9E682D2CD0C15 /* Pods-mapaMobilidade.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-mapaMobilidade.debug.xcconfig"; path = "Pods/Target Support Files/Pods-mapaMobilidade/Pods-mapaMobilidade.debug.xcconfig"; sourceTree = "<group>"; };
+		79CBA6592187711A004C31BE /* APIResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIResponse.swift; sourceTree = "<group>"; };
+		79D164CB21821C010092E549 /* Alerta.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alerta.swift; sourceTree = "<group>"; };
 		97B6E78BB3690487CD8C34E6 /* Pods-mapaMobilidade.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-mapaMobilidade.release.xcconfig"; path = "Pods/Target Support Files/Pods-mapaMobilidade/Pods-mapaMobilidade.release.xcconfig"; sourceTree = "<group>"; };
 		F239E77B2179267A009E8C95 /* linha_vermelha.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = linha_vermelha.json; sourceTree = "<group>"; };
 		F239E77C2179267B009E8C95 /* linha_esmeralda.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = linha_esmeralda.json; sourceTree = "<group>"; };
@@ -65,7 +69,7 @@
 		F29CAA29217607F600EC6BD5 /* CLLocationManager+Rx.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CLLocationManager+Rx.swift"; sourceTree = "<group>"; };
 		F29CAA2B2176083100EC6BD5 /* RxCLLocationDelegateProxy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RxCLLocationDelegateProxy.swift; sourceTree = "<group>"; };
 		F29CAA2D2176086500EC6BD5 /* GeoLocationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeoLocationService.swift; sourceTree = "<group>"; };
-		F29CAA2F21760B7000EC6BD5 /* MapaViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapaViewController.swift; sourceTree = "<group>"; };
+		F29CAA2F21760B7000EC6BD5 /* MapaViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapaViewController.swift; sourceTree = "<group>"; usesTabs = 0; };
 		F2EE845321762A8E009AB8A8 /* Repository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Repository.swift; sourceTree = "<group>"; };
 		F2EE845521764CF6009AB8A8 /* LinhasJSON.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinhasJSON.swift; sourceTree = "<group>"; };
 		F2EE845821765453009AB8A8 /* linhaJSON.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = linhaJSON.json; sourceTree = SOURCE_ROOT; };
@@ -100,6 +104,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		79D164CA21821BE80092E549 /* Alerta */ = {
+			isa = PBXGroup;
+			children = (
+				79D164CB21821C010092E549 /* Alerta.swift */,
+			);
+			path = Alerta;
+			sourceTree = "<group>";
+		};
 		ED6A850DA73E74C8D476385C /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -130,6 +142,7 @@
 		F29CAA15217606FA00EC6BD5 /* mapaMobilidade */ = {
 			isa = PBXGroup;
 			children = (
+				79D164CA21821BE80092E549 /* Alerta */,
 				F2EE846821767E04009AB8A8 /* JSONs */,
 				F2EE845C21766C6D009AB8A8 /* StyleMap */,
 				F2EE845321762A8E009AB8A8 /* Repository.swift */,
@@ -246,6 +259,7 @@
 			isa = PBXGroup;
 			children = (
 				F2F7481C2180D87A007A4133 /* Alamofire.swift */,
+				79CBA6592187711A004C31BE /* APIResponse.swift */,
 			);
 			path = Alamofire;
 			sourceTree = "<group>";
@@ -423,12 +437,14 @@
 				F2EE845B217659B6009AB8A8 /* PathCoordenadas.swift in Sources */,
 				F2EE845621764CF6009AB8A8 /* LinhasJSON.swift in Sources */,
 				F29CAA2E2176086500EC6BD5 /* GeoLocationService.swift in Sources */,
+				79D164CC21821C010092E549 /* Alerta.swift in Sources */,
 				F2F7481D2180D87A007A4133 /* Alamofire.swift in Sources */,
 				F29CAA19217606FA00EC6BD5 /* ViewController.swift in Sources */,
 				F2EE846D21768127009AB8A8 /* JSONDeuMerda.swift in Sources */,
 				F2EE846021766CEC009AB8A8 /* StyleMap.swift in Sources */,
 				F29CAA17217606FA00EC6BD5 /* AppDelegate.swift in Sources */,
 				F239E78A217A3E4E009E8C95 /* LinhaJSON.swift in Sources */,
+				79CBA65A2187711A004C31BE /* APIResponse.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
