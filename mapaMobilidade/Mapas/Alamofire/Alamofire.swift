@@ -20,14 +20,16 @@ class APIRequest {
     }()
     
     class func estacoesInfo(infosEstacoes: @escaping (_ dicionarioArrayEstacoes: [String: Any]) -> Void) {
-        shareInstance.request("http://104.196.60.173:3000/pontos").validate().responseJSON { (response) in
+        shareInstance.request().validate().responseJSON { (response) in
             switch response.result {
             case .success:
                 if let respostaServer = response.result.value as? NSArray {
                     let resposta = APIResponse.respostaAPI(respostaServer)
                     let dicionario: [String: Any] = ["latitude": resposta.latitude, "longitude": resposta.longitude, "id": resposta.id, "nome": resposta.nome, "linha": resposta.linha]
-                    
-                    infosEstacoes(dicionario)
+                    if APIResponse.respostaEstacoes(respostaServer) {
+                        infosEstacoes(dicionario)
+                    }
+//                    infosEstacoes(dicionario)
                     
                 }else{
                     print(response)
@@ -39,6 +41,25 @@ class APIRequest {
                 break
             }
             
+        }
+        
+    }
+    
+    class func interacaoEstacao(parametros: Parameters, habilitaLikes: @escaping () -> Void) {
+        
+//        habilitaLikes()
+        
+        shareInstance.request(, method: .post, parameters: parametros, encoding: JSONEncoding.default).validate().responseJSON { (response) in
+            print(response.debugDescription)
+            switch response.result {
+            case .success:
+                print(response.result.value ?? "Náo sei o q retornou")
+                habilitaLikes()
+                break
+            case .failure:
+                print(response.error?.localizedDescription ?? "Deu Merda na comunicacao")
+                break
+            }
         }
         
     }

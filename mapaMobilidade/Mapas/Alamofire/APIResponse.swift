@@ -44,4 +44,44 @@ class APIResponse {
         return (latitudeArray, longitudeArray, idArray, nomeArray, linhaArray)
     }
     
+    class func respostaEstacoes(_ jsonEstacoes: NSArray) -> Bool {
+        let json = JSON(jsonEstacoes)
+        //        let localizacaoArray = json.arrayValue.map({
+        //            $0["localizacao"].dictionaryValue
+        //        })
+        let coordenadasArray = json.arrayValue.map({
+            $0["localizacao"]["coordinates"].arrayValue
+        })
+        
+        var latitudeArray = Array<Double>()
+        var longitudeArray = Array<Double>()
+        for coordenada in coordenadasArray {
+            latitudeArray.append(coordenada[1].doubleValue)
+            longitudeArray.append(coordenada[0].doubleValue)
+        }
+        
+        let idArray = json.arrayValue.map({
+            $0["_id"].stringValue
+            
+        })
+        
+        let nomeArray = json.arrayValue.map({
+            $0["nome"].stringValue
+        })
+        
+        
+        let linhaArray = json.arrayValue.map({
+            $0["linha"].stringValue
+        })
+        
+        if CreateData.createEstacoes(nomeArray: nomeArray, linhaArray: linhaArray, idArray: idArray, latitudeArray: latitudeArray, longitudeArray: longitudeArray) {
+             UserDefaults.standard.set(true, forKey: "EstacoesSalvas")
+            return true
+        }else{
+            
+            return false
+        }
+        
+    }
+    
 }

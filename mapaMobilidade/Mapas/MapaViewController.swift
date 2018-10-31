@@ -12,8 +12,9 @@ import RxCocoa
 import CoreLocation
 import GoogleMaps
 import GooglePlaces
+import Alamofire
 
-class MapaViewController: UIViewController, GMSMapViewDelegate {
+class MapaViewController: UIViewController, GMSMapViewDelegate{
     
     @IBOutlet weak var coordenadaLabel: UILabel!
     @IBOutlet weak var configuracoesIphoneButton: UIButton!
@@ -29,7 +30,10 @@ class MapaViewController: UIViewController, GMSMapViewDelegate {
     
     @IBOutlet var votoView: UIView!
     @IBOutlet weak var dislikeButton: UIButton!
+    @IBOutlet weak var dislikeLabel: UILabel!
     @IBOutlet weak var likeButton: UIButton!
+    @IBOutlet weak var incidenteButton: UIButton!
+    @IBOutlet weak var incidenteText: UITextField!
     @IBOutlet weak var closeButton: UIButton!
     @IBOutlet weak var estacaoLabel: UILabel!
     @IBOutlet weak var linhaLabel: UILabel!
@@ -39,10 +43,14 @@ class MapaViewController: UIViewController, GMSMapViewDelegate {
     
     var latitude = Double()
     var longitude = Double()
+    var pickerOption = ["Usuário na via", "Maior tempo de parada", "Outro incidente"]
     
     private func atualizaTela(){
         view.addSubview(gpsDesativadoView)
         gpsDesativadoView.center = CGPoint(x: view.frame.width / 2, y: view.frame.height / 2)
+        likeButton.alpha = 0.0
+        dislikeButton.alpha = 0.0
+        dislikeLabel.alpha = 0.0
     }
     
     private func gpsRx() {
@@ -87,6 +95,7 @@ class MapaViewController: UIViewController, GMSMapViewDelegate {
         mapaGMSView.isMyLocationEnabled = true
         mapaGMSView.delegate = self
         mapaGMSView.setMinZoom(9.0, maxZoom: 19.0)
+        mapaGMSView.isBuildingsEnabled = false
         let mapaSettings = mapaGMSView.settings
         mapaSettings.compassButton = true
         mapaSettings.myLocationButton = true
@@ -174,7 +183,7 @@ class MapaViewController: UIViewController, GMSMapViewDelegate {
 //        let linhasButton = UIButton(frame: CGRect(x: 60, y: 180, width: 65, height: 65))
         let linhasButton = UIButton(type: .custom)
 //        linhasButton.setImage(UIImage(named: "subway"), for: .normal)
-        linhasButton.setTitle("Linhas", for: .normal)
+        linhasButton.setTitle("Polygon", for: .normal)
         linhasButton.backgroundColor = UIColor.red
         self.view.addSubview(linhasButton)
         linhasButton.translatesAutoresizingMaskIntoConstraints = false
@@ -194,6 +203,12 @@ class MapaViewController: UIViewController, GMSMapViewDelegate {
 //                }
               
 //                LinhaJSON.coordenadas()
+                
+                let circleCenter = CLLocationCoordinate2D(latitude: -23.543052, longitude: -46.644004)
+                let circ = GMSCircle(position: circleCenter, radius: 20)
+                circ.map = self.mapaGMSView
+                
+                
             }
             .disposed(by: disposeBag)
         
@@ -258,6 +273,17 @@ class MapaViewController: UIViewController, GMSMapViewDelegate {
         
     }
     
+    func markersEstacoes() {
+        RetrieveData.recuperaEstacoesMarkers { (markers) in
+            for marker in markers {
+                marker.map = self.mapaGMSView
+                
+            }
+            
+        }
+        
+    }
+    
     func overlayEstacoes() {
         
         EstacoesGroundOverlays.estacoesGround { (overlay) in
@@ -286,21 +312,47 @@ class MapaViewController: UIViewController, GMSMapViewDelegate {
         return alerta
     }
     
-    func mapView(_ mapView: GMSMapView, willMove gesture: Bool) {
+    func pickerViewIncidentes(){
         
-//        mapaGMSView.map { (map)  in
-//            print(map.camera.zoom)
-//            if map.camera.zoom < 12.0 {
-//                print("Algo")
-////                mapaGMSView.clear()
-//            }else{
-////                print("Outra coisa")
-//                markerEstacoes()
-//            }
-//        }
+        let pickerView = UIPickerView()
+        pickerView.alpha = 0.8
+        pickerView.delegate = self
+        incidenteText.inputView = pickerView
+        
+        let toolBar = UIToolbar()
+        toolBar.barStyle = .default
+        toolBar.isTranslucent = true
+        toolBar.sizeToFit()
+        
+        let okButton = UIBarButtonItem(title: "Ok", style: .plain, target: self, action: #selector(okClick))
+        let spaceButton = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+        
+        toolBar.setItems([spaceButton, okButton], animated: false)
+        toolBar.isUserInteractionEnabled = true
+        incidenteText.inputAccessoryView = toolBar
         
     }
+    
+    @objc func okClick(){
+        incidenteText.resignFirstResponder()
         
+    }
+    
+//    func mapView(_ mapView: GMSMapView, willMove gesture: Bool) {
+//
+////        mapaGMSView.map { (map)  in
+////            print(map.camera.zoom)
+////            if map.camera.zoom < 12.0 {
+////                print("Algo")
+//////                mapaGMSView.clear()
+////            }else{
+//////                print("Outra coisa")
+////                markerEstacoes()
+////            }
+////        }
+//
+//    }
+    
     func mapView(_ mapView: GMSMapView, idleAt position: GMSCameraPosition) {
 //        geocoder.reverseGeocodeCoordinate(position.target) { (response, error) in
 //            guard error == nil else {
@@ -384,7 +436,7 @@ class MapaViewController: UIViewController, GMSMapViewDelegate {
     func mapView(_ mapView: GMSMapView, didTap marker: GMSMarker) -> Bool {
 
         let margins = view.layoutMarginsGuide
-        print(marker.position.longitude)
+
         UIView.animate(withDuration: 1.0, animations: {
             let coordenadasCamera = CLLocationCoordinate2DMake(marker.position.latitude, marker.position.longitude)
             let camera = GMSCameraPosition.camera(withTarget: coordenadasCamera, zoom: 16.0)
@@ -409,7 +461,7 @@ class MapaViewController: UIViewController, GMSMapViewDelegate {
 //      self.present(alerta, animated: true)
 //
 //        let coorde2D = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
-        calculaDistanciaSaidas()
+//        calculaDistanciaSaidas()
         
         closePopUp()
 
@@ -430,6 +482,72 @@ class MapaViewController: UIViewController, GMSMapViewDelegate {
 //        return true
 //    }
     
+    func verificaFisrtOpen() {
+//        let mapViewID = UIStoryboard.init(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "mapViewID")
+        if UserDefaults.standard.value(forKey: "FirstOpen") == nil {
+            UserDefaults.standard.set(true, forKey: "FirstOpen")
+            print("First Open")
+            APIRequest.estacoesInfo { (_) in
+//                self.present(mapViewID, animated: true)
+                self.markersEstacoes()
+                self.mapaGMSView.startRendering()
+            }
+        }else{
+            print("Already open another time")
+            if UserDefaults.standard.value(forKey: "EstacoesSalvas") == nil {
+                APIRequest.estacoesInfo { (_) in
+//                    self.present(mapViewID, animated: true)
+                    self.markersEstacoes()
+                    self.mapaGMSView.startRendering()
+                }
+            }else{
+                //                RetrieveData.recuperaEstacoes()
+//                present(mapViewID, animated: true)
+                self.markersEstacoes()
+                self.mapaGMSView.startRendering()
+            }
+        }
+
+    }
+    
+    func inserirIncidenteButton(){
+        incidenteButton.rx.tap
+            .bind {
+                    let parameters: Parameters=["id_usuario": "1", "latitude": self.latitude, "longitude": self.longitude, "incidente": self.incidenteText.text!]
+
+                    APIRequest.interacaoEstacao(parametros: parameters, habilitaLikes: {
+                        self.incidenteButton.alpha = 0.0
+                        self.incidenteButton.isEnabled = false
+                        self.incidenteText.isEnabled = false
+                        self.likeButton.alpha = 1.0
+                        self.dislikeButton.alpha = 1.0
+                        self.dislikeLabel.alpha = 1.0
+                    })
+
+            }
+            .disposed(by: disposeBag)
+        
+    }
+    
+    func inserirIncidenteTextField() {
+     
+        incidenteText.rx.controlEvent(.editingDidBegin)
+            .bind {
+                self.incidenteText.text = self.pickerOption[0]
+            }
+            .disposed(by: disposeBag)
+    }
+    
+    func dislikeBotao() {
+        var voto = 0
+        dislikeButton.rx.tap
+            .bind{
+                voto += 1
+                self.dislikeLabel.text = "\(voto)"
+            }
+        .disposed(by: disposeBag)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -439,14 +557,23 @@ class MapaViewController: UIViewController, GMSMapViewDelegate {
         gpsRx()
 //        atualizaLinhaAzul()
 //        deuMerdaBotao()
-        markerEstacoes()
+//        markerEstacoes()
 //        overlayEstacoes()
         linhasJSONButton()
         tracarLinhas()
+        inserirIncidenteButton()
+        dislikeBotao()
+        pickerViewIncidentes()
+        inserirIncidenteTextField()
+        
         // Do any additional setup after loading the view.
     }
     
-
+    override func viewWillAppear(_ animated: Bool) {
+        mapaGMSView.stopRendering()
+        verificaFisrtOpen()
+    }
+    
     /*
     // MARK: - Navigation
 
@@ -457,4 +584,24 @@ class MapaViewController: UIViewController, GMSMapViewDelegate {
     }
     */
 
+}
+
+extension MapaViewController: UIPickerViewDelegate, UIPickerViewDataSource {
+    
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 1
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return pickerOption.count
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        incidenteText.text = pickerOption[row]
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        return pickerOption[row]
+    }
+    
 }
