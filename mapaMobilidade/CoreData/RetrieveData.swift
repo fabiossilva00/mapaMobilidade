@@ -26,15 +26,18 @@ class RetrieveData {
             
             for data in result as! [NSManagedObject] {
                 
-                print("Estacoes ID ", data.value(forKey: "id") as! String)
-                print("Estacoes Nome ", data.value(forKey: "nome") as! String)
-                print("Estacoes Linha ", data.value(forKey: "linha") as! String)
-                print("Estacoes Latitude ", data.value(forKey: "longitude") as! Double)
-                print("Estacoes Longitude ", data.value(forKey: "latitude") as! Double)
+//                print("Estacoes ID ", data.value(forKey: "id") as! String)
+//                print("Estacoes Nome ", data.value(forKey: "nome") as! String)
+//                print("Estacoes Linha ", data.value(forKey: "linha") as! String)
+//                print("Estacoes Latitude ", data.value(forKey: "longitude") as! Double)
+//                print("Estacoes Longitude ", data.value(forKey: "latitude") as! Double)
+                
+                let spot: [String: Any] = ["id": data.value(forKey: "id") as! String, "interacao": false]
                 
                 let marker = GMSMarker(position: CLLocationCoordinate2D(latitude: data.value(forKey: "latitude") as! Double, longitude: data.value(forKey: "longitude") as! Double))
                 marker.title = data.value(forKey: "nome") as! String
                 marker.snippet = data.value(forKey: "linha") as! String
+                marker.userData = spot
                 markerArray.append(marker)
                 
             }

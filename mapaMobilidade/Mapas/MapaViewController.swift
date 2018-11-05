@@ -37,6 +37,7 @@ class MapaViewController: UIViewController, GMSMapViewDelegate{
     @IBOutlet weak var closeButton: UIButton!
     @IBOutlet weak var estacaoLabel: UILabel!
     @IBOutlet weak var linhaLabel: UILabel!
+    @IBOutlet weak var incidenteLabel: UILabel!
     
     private let geoLocationService = GeolocationService.instance
     var disposeBag = DisposeBag()
@@ -44,6 +45,8 @@ class MapaViewController: UIViewController, GMSMapViewDelegate{
     var latitude = Double()
     var longitude = Double()
     var pickerOption = ["Usuário na via", "Maior tempo de parada", "Outro incidente"]
+    var estacaoMarker = String()
+    var markersMapa = [GMSMarker()]
     
     private func atualizaTela(){
         view.addSubview(gpsDesativadoView)
@@ -51,6 +54,8 @@ class MapaViewController: UIViewController, GMSMapViewDelegate{
         likeButton.alpha = 0.0
         dislikeButton.alpha = 0.0
         dislikeLabel.alpha = 0.0
+        incidenteLabel.text = "Preencha um incidente antes de enviar"
+        incidenteButton.isEnabled = false
     }
     
     private func gpsRx() {
@@ -275,12 +280,16 @@ class MapaViewController: UIViewController, GMSMapViewDelegate{
     
     func markersEstacoes() {
         RetrieveData.recuperaEstacoesMarkers { (markers) in
-            for marker in markers {
+            self.markersMapa = markers
+            for marker in self.markersMapa {
                 marker.map = self.mapaGMSView
                 
             }
-            
         }
+    }
+
+    func markersEstacoesNil() {
+            
         
     }
     
@@ -432,7 +441,32 @@ class MapaViewController: UIViewController, GMSMapViewDelegate{
         }
 
     }
+    
+    
+    func inserirIncidenteButton(interacao: @escaping () -> Void){
+        incidenteButton.rx.tap
+            .bind {
 
+                APIRequest.verificaDistanciaEstacao(estacao: self.estacaoMarker.components(separatedBy: .whitespaces).joined().folding(options: .diacriticInsensitive, locale: .current), latitude: self.latitude, longitude: self.longitude, habilitaInteracao: {
+                    let parameters: Parameters=["id_usuario": "1", "latitude": self.latitude, "longitude": self.longitude, "incidente": self.incidenteText.text!]
+                    
+                    APIRequest.interacaoEstacao(parametros: parameters, habilitaLikes: {
+                        self.incidenteButton.alpha = 0.0
+                        self.incidenteButton.isEnabled = false
+                        self.incidenteText.isEnabled = false
+                        self.likeButton.alpha = 1.0
+                        self.dislikeButton.alpha = 1.0
+                        self.dislikeLabel.alpha = 1.0
+                        interacao()
+                    })
+                    
+                })
+                
+            }
+            .disposed(by: disposeBag)
+        
+    }
+    
     func mapView(_ mapView: GMSMapView, didTap marker: GMSMarker) -> Bool {
 
         let margins = view.layoutMarginsGuide
@@ -457,11 +491,33 @@ class MapaViewController: UIViewController, GMSMapViewDelegate{
             
         })
         
-//        let alerta = self.alertaDistancia(localizacao: CLLocationCoordinate2D(latitude: marker.position.latitude, longitude: marker.position.longitude))
-//      self.present(alerta, animated: true)
-//
-//        let coorde2D = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
-//        calculaDistanciaSaidas()
+        var markerData = marker.userData as! [String: Any]
+        print(markerData["interacao"])
+        
+        let interacao = markerData["interacao"] as! Bool
+        
+        if interacao {
+            self.incidenteButton.alpha = 0.0
+            self.incidenteButton.isEnabled = false
+            self.incidenteText.isEnabled = false
+            self.likeButton.alpha = 1.0
+            self.dislikeButton.alpha = 1.0
+            self.dislikeLabel.alpha = 1.0
+        }else{
+            self.incidenteButton.alpha = 1.0
+            self.incidenteButton.isEnabled = true
+            self.incidenteText.isEnabled = true
+            self.likeButton.alpha = 0.0
+            self.dislikeButton.alpha = 0.0
+            self.dislikeLabel.alpha = 0.0
+        }
+        
+        estacaoMarker = marker.title ?? ""
+        
+        inserirIncidenteButton(interacao: {
+            markerData.updateValue(true, forKey: "interacao")
+            marker.userData = markerData
+        })
         
         closePopUp()
 
@@ -510,32 +566,24 @@ class MapaViewController: UIViewController, GMSMapViewDelegate{
 
     }
     
-    func inserirIncidenteButton(){
-        incidenteButton.rx.tap
-            .bind {
-                    let parameters: Parameters=["id_usuario": "1", "latitude": self.latitude, "longitude": self.longitude, "incidente": self.incidenteText.text!]
-
-                    APIRequest.interacaoEstacao(parametros: parameters, habilitaLikes: {
-                        self.incidenteButton.alpha = 0.0
-                        self.incidenteButton.isEnabled = false
-                        self.incidenteText.isEnabled = false
-                        self.likeButton.alpha = 1.0
-                        self.dislikeButton.alpha = 1.0
-                        self.dislikeLabel.alpha = 1.0
-                    })
-
-            }
-            .disposed(by: disposeBag)
-        
-    }
-    
     func inserirIncidenteTextField() {
-     
-        incidenteText.rx.controlEvent(.editingDidBegin)
-            .bind {
-                self.incidenteText.text = self.pickerOption[0]
-            }
+        let incidenteLabelRx = incidenteText.rx.text.orEmpty
+                                .map{ !$0.isEmpty }
+                                .share(replay: 1)
+
+        incidenteLabelRx
+            .bind(to: incidenteLabel.rx.isHidden)
             .disposed(by: disposeBag)
+
+        let incidenteButtonRx = incidenteText.rx.text.orEmpty
+                                    .map{ !$0.isEmpty }
+                                    .share(replay: 1)
+        
+            incidenteButtonRx
+                .bind(to: incidenteButton.rx.isEnabled)
+                .disposed(by: disposeBag)
+        
+        
     }
     
     func dislikeBotao() {
@@ -550,7 +598,7 @@ class MapaViewController: UIViewController, GMSMapViewDelegate{
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+            
         atualizaTela()
         configuracaoTapRx()
         atualizaGPS()
@@ -561,10 +609,11 @@ class MapaViewController: UIViewController, GMSMapViewDelegate{
 //        overlayEstacoes()
         linhasJSONButton()
         tracarLinhas()
-        inserirIncidenteButton()
         dislikeBotao()
         pickerViewIncidentes()
         inserirIncidenteTextField()
+        
+        WebSocketa.scoreWebSocket()
         
         // Do any additional setup after loading the view.
     }

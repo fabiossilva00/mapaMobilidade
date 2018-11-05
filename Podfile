@@ -11,6 +11,7 @@ target 'mapaMobilidade' do
 	pod 'Alamofire'
 	pod 'RxSwift',    '~> 4.0'
 	pod 'RxCocoa',    '~> 4.0'
+	pod 'Socket.IO-Client-Swift', '~> 13.3.0'
 
   # Pods for mapaMobilidade
 

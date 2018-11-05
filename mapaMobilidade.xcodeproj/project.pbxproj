@@ -12,6 +12,7 @@
 		79CBA6A72188C21E004C31BE /* mapaMobilidade.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 79CBA6A52188C21E004C31BE /* mapaMobilidade.xcdatamodeld */; };
 		79CBA6AA2188C2C6004C31BE /* CreateData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79CBA6A92188C2C6004C31BE /* CreateData.swift */; };
 		79CBA6AC2188C2F7004C31BE /* RetrieveData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79CBA6AB2188C2F7004C31BE /* RetrieveData.swift */; };
+		79DB505D2190864900A67EE2 /* WebSocket.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79DB505C2190864900A67EE2 /* WebSocket.swift */; };
 		F239E7822179267C009E8C95 /* linha_vermelha.json in Resources */ = {isa = PBXBuildFile; fileRef = F239E77B2179267A009E8C95 /* linha_vermelha.json */; };
 		F239E7832179267C009E8C95 /* linha_esmeralda.json in Resources */ = {isa = PBXBuildFile; fileRef = F239E77C2179267B009E8C95 /* linha_esmeralda.json */; };
 		F239E7842179267C009E8C95 /* linha_diamante.json in Resources */ = {isa = PBXBuildFile; fileRef = F239E77D2179267B009E8C95 /* linha_diamante.json */; };
@@ -55,6 +56,7 @@
 		79CBA6A62188C21E004C31BE /* mapaMobilidade.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = mapaMobilidade.xcdatamodel; sourceTree = "<group>"; };
 		79CBA6A92188C2C6004C31BE /* CreateData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateData.swift; sourceTree = "<group>"; };
 		79CBA6AB2188C2F7004C31BE /* RetrieveData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RetrieveData.swift; sourceTree = "<group>"; };
+		79DB505C2190864900A67EE2 /* WebSocket.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebSocket.swift; sourceTree = "<group>"; };
 		97B6E78BB3690487CD8C34E6 /* Pods-mapaMobilidade.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-mapaMobilidade.release.xcconfig"; path = "Pods/Target Support Files/Pods-mapaMobilidade/Pods-mapaMobilidade.release.xcconfig"; sourceTree = "<group>"; };
 		F239E77B2179267A009E8C95 /* linha_vermelha.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = linha_vermelha.json; sourceTree = "<group>"; };
 		F239E77C2179267B009E8C95 /* linha_esmeralda.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = linha_esmeralda.json; sourceTree = "<group>"; };
@@ -108,11 +110,12 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		79CA8AE2218A2353000A2452 /* New Group */ = {
+		79CA8AE2218A2353000A2452 /* WebSocketIO */ = {
 			isa = PBXGroup;
 			children = (
+				79DB505C2190864900A67EE2 /* WebSocket.swift */,
 			);
-			path = "New Group";
+			path = WebSocketIO;
 			sourceTree = "<group>";
 		};
 		79CBA6A82188C2AA004C31BE /* CoreData */ = {
@@ -154,7 +157,7 @@
 		F29CAA15217606FA00EC6BD5 /* mapaMobilidade */ = {
 			isa = PBXGroup;
 			children = (
-				79CA8AE2218A2353000A2452 /* New Group */,
+				79CA8AE2218A2353000A2452 /* WebSocketIO */,
 				79CBA6A82188C2AA004C31BE /* CoreData */,
 				F2EE846821767E04009AB8A8 /* JSONs */,
 				F2EE845C21766C6D009AB8A8 /* StyleMap */,
@@ -321,6 +324,11 @@
 				TargetAttributes = {
 					F29CAA12217606FA00EC6BD5 = {
 						CreatedOnToolsVersion = 10.0;
+						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 0;
+							};
+						};
 					};
 				};
 			};
@@ -402,6 +410,8 @@
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/RxCocoa/RxCocoa.framework",
 				"${BUILT_PRODUCTS_DIR}/RxSwift/RxSwift.framework",
+				"${BUILT_PRODUCTS_DIR}/Socket.IO-Client-Swift/SocketIO.framework",
+				"${BUILT_PRODUCTS_DIR}/Starscream/Starscream.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
@@ -409,6 +419,8 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxCocoa.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxSwift.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SocketIO.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Starscream.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyJSON.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -454,6 +466,7 @@
 				79CBA6A72188C21E004C31BE /* mapaMobilidade.xcdatamodeld in Sources */,
 				F2F7481D2180D87A007A4133 /* Alamofire.swift in Sources */,
 				F29CAA19217606FA00EC6BD5 /* ViewController.swift in Sources */,
+				79DB505D2190864900A67EE2 /* WebSocket.swift in Sources */,
 				F2EE846D21768127009AB8A8 /* JSONDeuMerda.swift in Sources */,
 				F2EE846021766CEC009AB8A8 /* StyleMap.swift in Sources */,
 				F29CAA17217606FA00EC6BD5 /* AppDelegate.swift in Sources */,

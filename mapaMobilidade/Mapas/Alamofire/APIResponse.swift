@@ -84,4 +84,10 @@ class APIResponse {
         
     }
     
+    class func respostaInteracao(_ jsonInteracao: NSDictionary) -> Bool{
+        let json = JSON(jsonInteracao)
+        
+        return json["iteracao"].boolValue
+    }
+    
 }
