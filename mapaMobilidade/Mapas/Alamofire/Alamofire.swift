@@ -50,10 +50,10 @@ class APIRequest {
 //        habilitaLikes()
         
         shareInstance.request("http://104.196.60.173:3000/iteracao", method: .post, parameters: parametros, encoding: JSONEncoding.default).validate().responseJSON { (response) in
-            print(response.debugDescription)
+//            print(response.debugDescription)
             switch response.result {
             case .success:
-                print(response.result.value ?? "Náo sei o q retornou")
+//                print(response.result.value ?? "Náo sei o q retornou")
                 habilitaLikes()
                 break
             case .failure:
@@ -70,7 +70,7 @@ class APIRequest {
         guard let urlRequest = URL(string: "http://104.196.60.173:3000/localizacao/\(estacao)/\(latitude)/\(longitude)") else { return }
         
         shareInstance.request(urlRequest).validate().responseJSON { (response) in
-            print(response.debugDescription)
+//            print(response.debugDescription)
             switch response.result{
             case .success:
                 if let respotaServer = response.result.value as? NSDictionary {

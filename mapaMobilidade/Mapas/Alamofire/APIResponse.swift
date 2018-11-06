@@ -46,6 +46,7 @@ class APIResponse {
     
     class func respostaEstacoes(_ jsonEstacoes: NSArray) -> Bool {
         let json = JSON(jsonEstacoes)
+        print(json)
         //        let localizacaoArray = json.arrayValue.map({
         //            $0["localizacao"].dictionaryValue
         //        })

@@ -13,6 +13,7 @@ import CoreLocation
 import GoogleMaps
 import GooglePlaces
 import Alamofire
+import SocketIO
 
 class MapaViewController: UIViewController, GMSMapViewDelegate{
     
@@ -594,6 +595,13 @@ class MapaViewController: UIViewController, GMSMapViewDelegate{
                 self.dislikeLabel.text = "\(voto)"
             }
         .disposed(by: disposeBag)
+        
+    }
+    
+    func observableScore(){
+     
+        
+        
     }
     
     override func viewDidLoad() {
@@ -613,7 +621,7 @@ class MapaViewController: UIViewController, GMSMapViewDelegate{
         pickerViewIncidentes()
         inserirIncidenteTextField()
         
-        WebSocketa.scoreWebSocket()
+//        WebSocketa.scoreWebSocket()
         
         // Do any additional setup after loading the view.
     }
@@ -621,6 +629,10 @@ class MapaViewController: UIViewController, GMSMapViewDelegate{
     override func viewWillAppear(_ animated: Bool) {
         mapaGMSView.stopRendering()
         verificaFisrtOpen()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        WebSocketIO.scoreWebSocket()
     }
     
     /*
