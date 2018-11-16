@@ -37,6 +37,8 @@ class MarkerEstacoes {
                 let marker = GMSMarker(position: CLLocationCoordinate2D(latitude: latitude[j], longitude: longitude[j]))
                 marker.title = nome[j]
                 marker.snippet = linha[j]
+                let spot: [String: Any] = ["id": id, "interacao": false, "score": 0]
+                marker.userData = spot
                 markerArray.append(marker)
             }
 

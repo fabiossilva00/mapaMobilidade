@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		26ACD71159C6BFEF03933617 /* Pods_mapaMobilidade.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F40338F0A220A8D5EFCDE91C /* Pods_mapaMobilidade.framework */; };
+		7910E8E921999B83009ED7CD /* linha_coral.json in Resources */ = {isa = PBXBuildFile; fileRef = 7910E8E821999B83009ED7CD /* linha_coral.json */; };
+		7910E8EC219B1088009ED7CD /* UberViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7910E8EB219B1087009ED7CD /* UberViewController.swift */; };
+		7910F1E9219C86120046FA20 /* PrecosCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7910F1E8219C86120046FA20 /* PrecosCollectionViewCell.swift */; };
 		79CBA65A2187711A004C31BE /* APIResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79CBA6592187711A004C31BE /* APIResponse.swift */; };
 		79CBA6A72188C21E004C31BE /* mapaMobilidade.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 79CBA6A52188C21E004C31BE /* mapaMobilidade.xcdatamodeld */; };
 		79CBA6AA2188C2C6004C31BE /* CreateData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79CBA6A92188C2C6004C31BE /* CreateData.swift */; };
@@ -52,6 +55,9 @@
 
 /* Begin PBXFileReference section */
 		0BB41404A4D9E682D2CD0C15 /* Pods-mapaMobilidade.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-mapaMobilidade.debug.xcconfig"; path = "Pods/Target Support Files/Pods-mapaMobilidade/Pods-mapaMobilidade.debug.xcconfig"; sourceTree = "<group>"; };
+		7910E8E821999B83009ED7CD /* linha_coral.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = linha_coral.json; path = ../../../../../../Downloads/raw/linha_coral.json; sourceTree = "<group>"; };
+		7910E8EB219B1087009ED7CD /* UberViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UberViewController.swift; sourceTree = "<group>"; };
+		7910F1E8219C86120046FA20 /* PrecosCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = PrecosCollectionViewCell.swift; path = mapaMobilidade/Uber/PrecosCollectionViewCell.swift; sourceTree = SOURCE_ROOT; };
 		79CBA6592187711A004C31BE /* APIResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIResponse.swift; sourceTree = "<group>"; };
 		79CBA6A62188C21E004C31BE /* mapaMobilidade.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = mapaMobilidade.xcdatamodel; sourceTree = "<group>"; };
 		79CBA6A92188C2C6004C31BE /* CreateData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateData.swift; sourceTree = "<group>"; };
@@ -110,6 +116,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		7910E8EA219B106C009ED7CD /* Uber */ = {
+			isa = PBXGroup;
+			children = (
+				7910E8EB219B1087009ED7CD /* UberViewController.swift */,
+				7910F1E8219C86120046FA20 /* PrecosCollectionViewCell.swift */,
+			);
+			path = Uber;
+			sourceTree = "<group>";
+		};
 		79CA8AE2218A2353000A2452 /* WebSocketIO */ = {
 			isa = PBXGroup;
 			children = (
@@ -157,6 +172,7 @@
 		F29CAA15217606FA00EC6BD5 /* mapaMobilidade */ = {
 			isa = PBXGroup;
 			children = (
+				7910E8EA219B106C009ED7CD /* Uber */,
 				79CA8AE2218A2353000A2452 /* WebSocketIO */,
 				79CBA6A82188C2AA004C31BE /* CoreData */,
 				F2EE846821767E04009AB8A8 /* JSONs */,
@@ -204,6 +220,7 @@
 				F2EE845821765453009AB8A8 /* linhaJSON.json */,
 				F2F7480D217E5AA0007A4133 /* linha_amarela.json */,
 				F239E77E2179267B009E8C95 /* linha_azul.json */,
+				7910E8E821999B83009ED7CD /* linha_coral.json */,
 				F239E77D2179267B009E8C95 /* linha_diamante.json */,
 				F239E77C2179267B009E8C95 /* linha_esmeralda.json */,
 				F2F748182180C007007A4133 /* linha_jade.json */,
@@ -367,6 +384,7 @@
 				F2F7480E217E5AA0007A4133 /* linha_amarela.json in Resources */,
 				F2EE845E21766C95009AB8A8 /* style_maps1.json in Resources */,
 				F2F7480A217E5822007A4133 /* linha_rubi.json in Resources */,
+				7910E8E921999B83009ED7CD /* linha_coral.json in Resources */,
 				F29CAA212176070800EC6BD5 /* LaunchScreen.storyboard in Resources */,
 				F29CAA1E2176070800EC6BD5 /* Assets.xcassets in Resources */,
 				F29CAA1C217606FA00EC6BD5 /* Main.storyboard in Resources */,
@@ -413,6 +431,8 @@
 				"${BUILT_PRODUCTS_DIR}/Socket.IO-Client-Swift/SocketIO.framework",
 				"${BUILT_PRODUCTS_DIR}/Starscream/Starscream.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework",
+				"${BUILT_PRODUCTS_DIR}/UberCore/UberCore.framework",
+				"${BUILT_PRODUCTS_DIR}/UberRides/UberRides.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
@@ -422,6 +442,8 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SocketIO.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Starscream.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyJSON.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/UberCore.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/UberRides.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -459,6 +481,7 @@
 				F2EE847421777BC2009AB8A8 /* EstacoesJSON.swift in Sources */,
 				F2EE845421762A8E009AB8A8 /* Repository.swift in Sources */,
 				F29CAA2C2176083100EC6BD5 /* RxCLLocationDelegateProxy.swift in Sources */,
+				7910E8EC219B1088009ED7CD /* UberViewController.swift in Sources */,
 				F2EE847621778482009AB8A8 /* MarkerEstacoes.swift in Sources */,
 				F2EE845B217659B6009AB8A8 /* PathCoordenadas.swift in Sources */,
 				F2EE845621764CF6009AB8A8 /* LinhasJSON.swift in Sources */,
@@ -472,6 +495,7 @@
 				F29CAA17217606FA00EC6BD5 /* AppDelegate.swift in Sources */,
 				79CBA6AA2188C2C6004C31BE /* CreateData.swift in Sources */,
 				79CBA6AC2188C2F7004C31BE /* RetrieveData.swift in Sources */,
+				7910F1E9219C86120046FA20 /* PrecosCollectionViewCell.swift in Sources */,
 				F239E78A217A3E4E009E8C95 /* LinhaJSON.swift in Sources */,
 				79CBA65A2187711A004C31BE /* APIResponse.swift in Sources */,
 			);

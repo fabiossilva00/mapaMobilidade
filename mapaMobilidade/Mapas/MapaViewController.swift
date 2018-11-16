@@ -14,6 +14,8 @@ import GoogleMaps
 import GooglePlaces
 import Alamofire
 import SocketIO
+import UberRides
+import UberCore
 
 class MapaViewController: UIViewController, GMSMapViewDelegate{
     
@@ -29,9 +31,10 @@ class MapaViewController: UIViewController, GMSMapViewDelegate{
     @IBOutlet weak var latitudeEstacaoLabel: UILabel!
     @IBOutlet weak var longitudeEstacaoLabel: UILabel!
     
+    @IBOutlet var uber99View: UIView!
     @IBOutlet var votoView: UIView!
-    @IBOutlet weak var dislikeButton: UIButton!
     @IBOutlet weak var dislikeLabel: UILabel!
+    @IBOutlet weak var uber99Button: UIButton!
     @IBOutlet weak var likeButton: UIButton!
     @IBOutlet weak var incidenteButton: UIButton!
     @IBOutlet weak var incidenteText: UITextField!
@@ -39,6 +42,9 @@ class MapaViewController: UIViewController, GMSMapViewDelegate{
     @IBOutlet weak var estacaoLabel: UILabel!
     @IBOutlet weak var linhaLabel: UILabel!
     @IBOutlet weak var incidenteLabel: UILabel!
+    
+    @IBOutlet weak var uberButton: UberButton!
+    @IBOutlet weak var precosCollection: UICollectionView!
     
     private let geoLocationService = GeolocationService.instance
     var disposeBag = DisposeBag()
@@ -48,12 +54,15 @@ class MapaViewController: UIViewController, GMSMapViewDelegate{
     var pickerOption = ["Usuário na via", "Maior tempo de parada", "Outro incidente"]
     var estacaoMarker = String()
     var markersMapa = [GMSMarker()]
+    let valoresUber = EstimativaUberAPI.shareInstance
+    
+    private var zoomMap = Double()
     
     private func atualizaTela(){
         view.addSubview(gpsDesativadoView)
         gpsDesativadoView.center = CGPoint(x: view.frame.width / 2, y: view.frame.height / 2)
         likeButton.alpha = 0.0
-        dislikeButton.alpha = 0.0
+        uber99Button.alpha = 0.0
         dislikeLabel.alpha = 0.0
         incidenteLabel.text = "Preencha um incidente antes de enviar"
         incidenteButton.isEnabled = false
@@ -100,7 +109,7 @@ class MapaViewController: UIViewController, GMSMapViewDelegate{
         mapaGMSView.mapType = .normal
         mapaGMSView.isMyLocationEnabled = true
         mapaGMSView.delegate = self
-        mapaGMSView.setMinZoom(9.0, maxZoom: 19.0)
+//        mapaGMSView.setMinZoom(9.0, maxZoom: 19.0)
         mapaGMSView.isBuildingsEnabled = false
         let mapaSettings = mapaGMSView.settings
         mapaSettings.compassButton = true
@@ -118,14 +127,14 @@ class MapaViewController: UIViewController, GMSMapViewDelegate{
         
     }
     
-    func atualizaLinhaAzul() {
-        PathCoordenadas.mutablePath(mutablePath: { (path) in
-            let polyline = GMSPolyline(path: path)
-            polyline.strokeColor = UIColor.blue
-            polyline.strokeWidth = 4
-            polyline.map = self.mapaGMSView
-        })
-    }
+//    func atualizaLinhaAzul() {
+//        PathCoordenadas.mutablePath(mutablePath: { (path) in
+//            let polyline = GMSPolyline(path: path)
+//            polyline.strokeColor = UIColor.blue
+//            polyline.strokeWidth = 4
+//            polyline.map = self.mapaGMSView
+//        })
+//    }
     
     func deuMerdaLinha(nomeArquivo: String) {
         PathCoordenadas.mutablePathtoPolyline(nomeArquivo: nomeArquivo) { (path) in
@@ -189,7 +198,7 @@ class MapaViewController: UIViewController, GMSMapViewDelegate{
 //        let linhasButton = UIButton(frame: CGRect(x: 60, y: 180, width: 65, height: 65))
         let linhasButton = UIButton(type: .custom)
 //        linhasButton.setImage(UIImage(named: "subway"), for: .normal)
-        linhasButton.setTitle("Polygon", for: .normal)
+        linhasButton.setTitle("Uber - 99", for: .normal)
         linhasButton.backgroundColor = UIColor.red
         self.view.addSubview(linhasButton)
         linhasButton.translatesAutoresizingMaskIntoConstraints = false
@@ -210,10 +219,14 @@ class MapaViewController: UIViewController, GMSMapViewDelegate{
               
 //                LinhaJSON.coordenadas()
                 
-                let circleCenter = CLLocationCoordinate2D(latitude: -23.543052, longitude: -46.644004)
-                let circ = GMSCircle(position: circleCenter, radius: 20)
-                circ.map = self.mapaGMSView
-                
+//                let circleCenter = CLLocationCoordinate2D(latitude: -23.543052, longitude: -46.644004)
+//                let circ = GMSCircle(position: circleCenter, radius: 20)
+//                circ.map = self.mapaGMSView
+//
+//                let marker = GMSMarker(position: CLLocationCoordinate2D(latitude: -23.530541665232146, longitude:  -46.983933448791504))
+//                marker.map = self.mapaGMSView
+                self.uber99View.center = self.view.center
+                self.view.addSubview(self.uber99View)
                 
             }
             .disposed(by: disposeBag)
@@ -226,12 +239,13 @@ class MapaViewController: UIViewController, GMSMapViewDelegate{
             let coresLinhas: Array<UIColor> = [
                 UIColor(red: 255/255, green: 234/255, blue: 0, alpha: 1.0),//amarela
                 UIColor(red: 0, green: 0, blue: 128/255, alpha: 1.0),//azul
+                UIColor(red: 255/255, green: 138/255, blue: 101/255, alpha: 1.0),//coral
                 UIColor(red: 158/255, green: 158/255, blue: 158/255, alpha: 1.0),//diamante
                 UIColor(red: 0, green: 151/255, blue: 167/255, alpha: 1.0),//esmeralda
-                UIColor(red: 0, green: 173/255, blue: 100/2558, alpha: 1.0),//jade
+                UIColor(red: 0, green: 200/255, blue: 83/2558, alpha: 1.0),//jade
                 UIColor(red: 155/255, green: 56/255, blue: 148/255, alpha: 1.0),//lilas
                 UIColor(red: 162/255, green: 169/255, blue: 177/255, alpha: 1.0),//prata
-                UIColor(red: 155/255, green: 56/255, blue: 148/255, alpha: 1.0),//rubi
+                UIColor(red: 197/255, green: 17/255, blue: 98/255, alpha: 1.0),//rubi
                 UIColor(red: 40/255, green: 53/255, blue: 147/255, alpha: 1.0), //safira
                 UIColor(red: 0, green: 172, blue: 193/255, alpha: 1.0),//turquesa
                 UIColor(red: 0, green: 121/255, blue: 107/255, alpha: 1.0), //verde
@@ -268,12 +282,14 @@ class MapaViewController: UIViewController, GMSMapViewDelegate{
     
     func markerEstacoes() {
         MarkerEstacoes.markerArray(markers: { (markers) in
-            for marker in markers {
-                self.mapaGMSView.map({ (map) in
-                    if (map.bounds.contains(marker.groundAnchor)){
-                        marker.map = self.mapaGMSView
-                    }
-                })
+            self.markersMapa = markers
+            for marker in self.markersMapa {
+//                self.mapaGMSView.map({ (map) in
+//                    if (map.bounds.contains(marker.groundAnchor)){
+//                        marker.map = self.mapaGMSView
+//                    }
+//                })
+                marker.map = self.mapaGMSView
             }
         })
         
@@ -290,8 +306,10 @@ class MapaViewController: UIViewController, GMSMapViewDelegate{
     }
 
     func markersEstacoesNil() {
+        for marker in self.markersMapa {
+            marker.map = nil
             
-        
+        }
     }
     
     func overlayEstacoes() {
@@ -348,20 +366,20 @@ class MapaViewController: UIViewController, GMSMapViewDelegate{
         
     }
     
-//    func mapView(_ mapView: GMSMapView, willMove gesture: Bool) {
-//
-////        mapaGMSView.map { (map)  in
-////            print(map.camera.zoom)
-////            if map.camera.zoom < 12.0 {
-////                print("Algo")
-//////                mapaGMSView.clear()
-////            }else{
-//////                print("Outra coisa")
-////                markerEstacoes()
-////            }
-////        }
-//
-//    }
+    func mapView(_ mapView: GMSMapView, willMove gesture: Bool) {
+
+//        mapaGMSView.map { (map)  in
+//            print(map.camera.zoom)
+//            if map.camera.zoom < 12.0 {
+//                print("Algo")
+////                mapaGMSView.clear()
+//            }else{
+////                print("Outra coisa")
+//                markerEstacoes()
+//            }
+//        }
+
+    }
     
     func mapView(_ mapView: GMSMapView, idleAt position: GMSCameraPosition) {
 //        geocoder.reverseGeocodeCoordinate(position.target) { (response, error) in
@@ -380,7 +398,8 @@ class MapaViewController: UIViewController, GMSMapViewDelegate{
 //            }
 //
 //        }
-        
+//        zoomMarkerMostra()
+//        votoView.removeFromSuperview()
     }
     
 //    func mapView(_ mapView: GMSMapView, didTap marker: GMSMarker) -> Bool {
@@ -447,16 +466,16 @@ class MapaViewController: UIViewController, GMSMapViewDelegate{
     func inserirIncidenteButton(interacao: @escaping () -> Void){
         incidenteButton.rx.tap
             .bind {
-
-                APIRequest.verificaDistanciaEstacao(estacao: self.estacaoMarker.components(separatedBy: .whitespaces).joined().folding(options: .diacriticInsensitive, locale: .current), latitude: self.latitude, longitude: self.longitude, habilitaInteracao: {
-                    let parameters: Parameters=["id_usuario": "1", "latitude": self.latitude, "longitude": self.longitude, "incidente": self.incidenteText.text!]
+                let estacaoAPI = self.estacaoMarker.components(separatedBy: .whitespaces).joined().folding(options: .diacriticInsensitive, locale: .current)
+                APIRequest.verificaDistanciaEstacao(estacao: estacaoAPI, latitude: self.latitude, longitude: self.longitude, habilitaInteracao: {
+                    let parameters: Parameters=["id_usuario": "23", "latitude": self.latitude, "longitude": self.longitude, "incidente": self.incidenteText.text!, "estacao": estacaoAPI]
                     
                     APIRequest.interacaoEstacao(parametros: parameters, habilitaLikes: {
                         self.incidenteButton.alpha = 0.0
                         self.incidenteButton.isEnabled = false
                         self.incidenteText.isEnabled = false
                         self.likeButton.alpha = 1.0
-                        self.dislikeButton.alpha = 1.0
+                        self.uber99Button.alpha = 1.0
                         self.dislikeLabel.alpha = 1.0
                         interacao()
                     })
@@ -470,6 +489,7 @@ class MapaViewController: UIViewController, GMSMapViewDelegate{
     
     func mapView(_ mapView: GMSMapView, didTap marker: GMSMarker) -> Bool {
 
+        
         let margins = view.layoutMarginsGuide
 
         UIView.animate(withDuration: 1.0, animations: {
@@ -492,8 +512,25 @@ class MapaViewController: UIViewController, GMSMapViewDelegate{
             
         })
         
+        Observable.of(scoreObs).merge()
+            .subscribe({
+                $0.event.map({ (event) in
+                    if let evento = event as? [String: Any] {
+                        if let estacao = evento["estacao"] as? String {
+                            if estacao == marker.title?.folding(options: .diacriticInsensitive, locale: .current) {
+                                self.dislikeLabel.text = String(evento["score"] as? Int ?? 0)
+                                var userData = marker.userData as! [String: Any]
+                                userData.updateValue(evento["score"] as! Int, forKey: "score")
+                                marker.userData = userData
+                            }
+                        }
+                    }
+                })
+            })
+            .disposed(by: disposeBag)
+        
         var markerData = marker.userData as! [String: Any]
-        print(markerData["interacao"])
+        print(markerData["score"])
         
         let interacao = markerData["interacao"] as! Bool
         
@@ -502,14 +539,14 @@ class MapaViewController: UIViewController, GMSMapViewDelegate{
             self.incidenteButton.isEnabled = false
             self.incidenteText.isEnabled = false
             self.likeButton.alpha = 1.0
-            self.dislikeButton.alpha = 1.0
+            self.uber99Button.alpha = 1.0
             self.dislikeLabel.alpha = 1.0
         }else{
             self.incidenteButton.alpha = 1.0
             self.incidenteButton.isEnabled = true
             self.incidenteText.isEnabled = true
             self.likeButton.alpha = 0.0
-            self.dislikeButton.alpha = 0.0
+            self.uber99Button.alpha = 0.0
             self.dislikeLabel.alpha = 0.0
         }
         
@@ -528,7 +565,7 @@ class MapaViewController: UIViewController, GMSMapViewDelegate{
     func mapView(_ mapView: GMSMapView, didTapMyLocation location: CLLocationCoordinate2D) {
         print(location)
     }
-    
+        
 //    func mapViewDidStartTileRendering(_ mapView: GMSMapView) {
 //
 //
@@ -584,51 +621,132 @@ class MapaViewController: UIViewController, GMSMapViewDelegate{
                 .bind(to: incidenteButton.rx.isEnabled)
                 .disposed(by: disposeBag)
         
-        
     }
     
     func dislikeBotao() {
-        var voto = 0
-        dislikeButton.rx.tap
+        uber99Button.rx.tap
             .bind{
-                voto += 1
-                self.dislikeLabel.text = "\(voto)"
+                UIView.animate(withDuration: 1.0, animations: {
+                    
+                }, completion: { _ in
+                    self.votoView.removeFromSuperview()
+                    self.view.addSubview(self.uber99View)
+                })
             }
         .disposed(by: disposeBag)
         
     }
     
-    func observableScore(){
-     
+    var publishZoom = PublishSubject<Float>()
+    
+    
+    func verificaZoom() {
         
         
     }
     
+    var mostraMarkerZoom: Float = 12.0
+    var markerMostra = true
+    
+    func zoomMarkerMostra() {
+        let zoom = mapaGMSView.camera.zoom
+        print(markerMostra)
+        print(zoom)
+        if markerMostra && zoom > mostraMarkerZoom {
+            markerMostra = false
+            print("Mostra")
+        }else {
+            if !markerMostra && zoom <= mostraMarkerZoom{
+                markerMostra = true
+                print(" Nao Mostra")
+            }
+        }
+    }
+    
+    func obsEstacao() {
+        Observable.of(scoreObs).merge()
+            .subscribe({
+                $0.event.map({ (event) in
+//                    if let evento = event as? [String: Any] {
+//
+//                    }
+                    self.verificaEstacao(estacao: event["estacao"] as? String ?? "", score:  event["estacao"] as? Int ?? 0)
+                })
+            })
+            .disposed(by: disposeBag)
+    }
+    
+    func verificaEstacao(estacao: String, score: Int) {
+        
+        let estacaoVerifica = estacao.components(separatedBy: .whitespaces).joined().folding(options: .diacriticInsensitive, locale: .current)
+        
+        for marker in markersMapa {
+            let estacaoMarker = (marker.title ?? "").components(separatedBy: .whitespaces).joined().folding(options: .diacriticInsensitive, locale: .current)
+            if estacaoVerifica == estacaoMarker {
+                print("Igual")
+                var userData = marker.userData as! [String: Any]
+                userData.updateValue(score, forKey: "score")
+                
+                break
+            }
+        }
+    }
+    
+    func uberChamada(){
+        uberButton.rx.tap
+            .bind{
+                //uber://?client_id=<CLIENT_ID>&action=setPickup&pickup[latitude]=37.775818&pickup[longitude]=-122.418028&pickup[nickname]=UberHQ&pickup[formatted_address]=1455%20Market%20St%2C%20San%20Francisco%2C%20CA%2094103&dropoff[latitude]=37.802374&dropoff[longitude]=-122.405818&dropoff[nickname]=Coit%20Tower&dropoff[formatted_address]=1%20Telegraph%20Hill%20Blvd%2C%20San%20Francisco%2C%20CA%2094133&product_id=a1111c8c-c720-46c3-8534-2fcdd730040d&link_text=View%20team%20roster&partner_deeplink=partner%3A%2F%2Fteam%2F9383
+                
+//                let builder = RideParametersBuilder()
+//                let pickupLocation = CLLocation(latitude: self.latitude, longitude: self.longitude)
+//                let dropoffLocation = CLLocation(latitude: -23.543775, longitude: -46.638778)//-23.543775, -46.638778
+//                builder.pickupLocation = pickupLocation
+//                builder.dropoffLocation = dropoffLocation
+//                builder.dropoffNickname = "UberHQ"
+//                builder.dropoffAddress = "1455 Market Street, San Francisco, California"
+//                let rideParameters = builder.build()
+//
+//                let deeplink = RequestDeeplink(rideParameters: rideParameters, fallbackType: .mobileWeb)
+//                deeplink.execute()
+                
+                self.valoresUber.chamadaEstimativa(estimativaUber: {
+                    self.precosCollection.reloadSections(IndexSet(integer: 0))
+                })
+                
+            }
+            .disposed(by: disposeBag)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-            
+        
         atualizaTela()
         configuracaoTapRx()
         atualizaGPS()
         gpsRx()
 //        atualizaLinhaAzul()
 //        deuMerdaBotao()
-//        markerEstacoes()
+        markerEstacoes()
 //        overlayEstacoes()
         linhasJSONButton()
         tracarLinhas()
         dislikeBotao()
+//        observableScore()
         pickerViewIncidentes()
         inserirIncidenteTextField()
-        
+        obsEstacao()
 //        WebSocketa.scoreWebSocket()
+        uberChamada()
+//        APIRequest.polygonTeste()
+        precosCollection.delegate = self
+        precosCollection.dataSource = self
         
         // Do any additional setup after loading the view.
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        mapaGMSView.stopRendering()
-        verificaFisrtOpen()
+//        mapaGMSView.stopRendering()
+//        verificaFisrtOpen()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -664,5 +782,26 @@ extension MapaViewController: UIPickerViewDelegate, UIPickerViewDataSource {
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         return pickerOption[row]
     }
+    
+}
+
+extension MapaViewController: UICollectionViewDelegate, UICollectionViewDataSource {
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        print(valoresUber.estimativas.count)
+        return valoresUber.estimativas.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        
+        let cell = precosCollection.dequeueReusableCell(withReuseIdentifier: "uberCell", for: indexPath) as! PrecosCollectionViewCell
+        
+        let valores = valoresUber.estimativas[indexPath.row]
+        
+        cell.conteudoUber(tipo: valores.tipoUber, distancia: valores.distanciaMi, duracao: valores.tempoSegundos, estimatica: valores.estimativaValor)
+        
+        return cell
+    }
+    
     
 }

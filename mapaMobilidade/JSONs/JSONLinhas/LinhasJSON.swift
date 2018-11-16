@@ -34,7 +34,7 @@ class LinhasJSON {
     
     class func linhasJSON(linhasArray: @escaping (_ latitude: Array<Array<Double>>, _ longitude: Array<Array<Double>>) -> Void ) {
         
-        let linhaNome = ["linha_amarela", "linha_azul", "linha_diamante", "linha_esmeralda", "linha_jade", "linha_lilas", "linha_prata", "linha_rubi", "linha_safira", "linha_turquesa", "linha_verde", "linha_vermelha"]
+        let linhaNome = ["linha_amarela", "linha_azul", "linha_coral", "linha_diamante", "linha_esmeralda", "linha_jade", "linha_lilas", "linha_prata", "linha_rubi", "linha_safira", "linha_turquesa", "linha_verde", "linha_vermelha"]
         print(linhaNome)
         var latitudeLinhas = Array<Array<Double>>()
         var longitudeLinhas = Array<Array<Double>>()

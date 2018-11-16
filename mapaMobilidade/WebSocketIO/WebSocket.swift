@@ -11,6 +11,8 @@ import SocketIO
 import RxCocoa
 import RxSwift
 
+public var scoreObs = PublishSubject<[String: Any]>()
+
 class WebSocketIO {
     
     static var manager = SocketManager(socketURL: URL(string: "http://104.196.60.173:3000")!, config: [.log(true), .compress])
@@ -30,19 +32,17 @@ class WebSocketIO {
         }
         
         socket.on("/score") { data, ack in
-            
             guard let scoreJSON = data as? Array<[String: Any]> else { return }
-            if let score = scoreJSON[0]["score"] as? Int {
-                print(score)
-            }
+            
+            scoreObs.onNext(scoreJSON[0])
+            
+//            if let score = scoreJSON[0]["score"] as? Int {
+//                print(score)
+//            }
             
         }
         
-//        socket.connect(timeoutAfter: 5.0) {
-//            print("timeoutAfter 5.0")
-//        }
-        
-//        socket.connect()
+//        socket.emit("algo", <#T##items: SocketData...##SocketData#>)
         
     }
 }

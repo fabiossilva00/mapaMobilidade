@@ -20,7 +20,8 @@ class APIRequest {
     }()
     
     class func estacoesInfo(infosEstacoes: @escaping (_ dicionarioArrayEstacoes: [String: Any]) -> Void) {
-        shareInstance.request("http://104.196.60.173:3000/pontos").validate().responseJSON { (response) in
+        shareInstance.request("http://104.196.60.173:3001/pontos").validate().responseJSON { (response) in
+            print(response.debugDescription)
             switch response.result {
             case .success:
                 if let respostaServer = response.result.value as? NSArray {
@@ -50,10 +51,17 @@ class APIRequest {
 //        habilitaLikes()
         
         shareInstance.request("http://104.196.60.173:3000/iteracao", method: .post, parameters: parametros, encoding: JSONEncoding.default).validate().responseJSON { (response) in
-//            print(response.debugDescription)
+            print(response.debugDescription)
             switch response.result {
             case .success:
+                habilitaLikes()
 //                print(response.result.value ?? "Náo sei o q retornou")
+                if let respostaServer = response.result.value as? NSDictionary {
+                    if APIResponse.respostaIncidenteInteracao(respostaServer){
+                        habilitaLikes()
+                    }
+                }
+                
                 habilitaLikes()
                 break
             case .failure:
@@ -73,9 +81,10 @@ class APIRequest {
 //            print(response.debugDescription)
             switch response.result{
             case .success:
+                habilitaInteracao()
                 if let respotaServer = response.result.value as? NSDictionary {
                     if APIResponse.respostaInteracao(respotaServer) {
-                        habilitaInteracao()
+//                        habilitaInteracao()
                     }
                 }else{
                     print("Esta longe da localizacao")
@@ -90,5 +99,62 @@ class APIRequest {
         }
         
     }
+    
+    class func chamadaUber(finalizaChamada: @escaping () -> Void) {
+        
+        let headers: HTTPHeaders = ["Authorization": "Token n1SDdbgvYCJWCwtmmBB3-xSKQyrL8Y_GmfCMCbew", "Accept-Language": "pt-br"]
+        
+        shareInstance.request("https://api.uber.com/v1.2/estimates/price?start_latitude=-23.543052&start_longitude=-46.644004&end_latitude=-23.543999&end_longitude=-46.645999", method: .get, encoding: JSONEncoding.default, headers: headers).validate().responseJSON { (response) in
+            print(response.debugDescription)
+            
+            APIResponse().respostaUberEstimativa(response.result.value as! NSDictionary, completion: {
+                finalizaChamada()
+            })
+        }
+        
+    }
+    
+//    class func polygonTeste() {
+//        
+//        let parameters: Parameters=["stationID": "QualquerCoisa", "location": ["latitude": "-23.543052", "longitude": "-46.644004"]]
+//        shareInstance.request("http:192.168.15.11:3050/api/v1/issues", method: .post, parameters: parameters, encoding: JSONEncoding.default).validate().responseJSON { (response) in
+//            
+//            print(response.debugDescription)
+//            
+//        }
+//        //stationID
+//        //location { latitude, longitude }
+//        
+//    }
+    
+}
+
+final class EstimativaUberAPI {
+    
+    static let shareInstance = EstimativaUberAPI()
+    
+    var estimativas: [EstimativaUber] = []
+    
+    func chamadaEstimativa(estimativaUber: @escaping () -> Void) {
+     
+        let headers: HTTPHeaders = ["Authorization": "Token n1SDdbgvYCJWCwtmmBB3-xSKQyrL8Y_GmfCMCbew", "Accept-Language": "pt-br"]
+        
+        APIRequest.shareInstance.request("https://api.uber.com/v1.2/estimates/price?start_latitude=-23.543052&start_longitude=-46.644004&end_latitude=-23.543999&end_longitude=-46.645999", method: .get, encoding: JSONEncoding.default, headers: headers).validate().responseJSON { (response) in
+            self.estimativas.removeAll()
+            if let respostaServer = response.result.value as? EstimativaUberJSON {
+                if let jsonPrices = respostaServer["prices"] as? Array<[String: Any]> {
+                    for prices in jsonPrices {
+                        let preco = EstimativaUber(dicionario: prices)
+                        self.estimativas.append(preco)
+                    }
+                    estimativaUber()
+                }
+                
+            }
+            
+        }
+        
+    }
+    
     
 }

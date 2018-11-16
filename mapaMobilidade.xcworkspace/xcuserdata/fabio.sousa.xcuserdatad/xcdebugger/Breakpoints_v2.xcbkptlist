@@ -6,16 +6,16 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "No"
+            shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "mapaMobilidade/Mapas/Alamofire/APIResponse.swift"
-            timestampString = "563202966.938475"
+            filePath = "mapaMobilidade/Mapas/MapaViewController.swift"
+            timestampString = "564077453.761055"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "50"
-            endingLineNumber = "50"
-            landmarkName = "respostaEstacoes(_:)"
+            startingLineNumber = "792"
+            endingLineNumber = "792"
+            landmarkName = "collectionView(_:numberOfItemsInSection:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -25,13 +25,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "mapaMobilidade/Mapas/Alamofire/APIResponse.swift"
-            timestampString = "563202966.938906"
+            filePath = "mapaMobilidade/Mapas/MapaViewController.swift"
+            timestampString = "564077453.761132"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "49"
-            endingLineNumber = "49"
-            landmarkName = "respostaEstacoes(_:)"
+            startingLineNumber = "791"
+            endingLineNumber = "791"
+            landmarkName = "collectionView(_:numberOfItemsInSection:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

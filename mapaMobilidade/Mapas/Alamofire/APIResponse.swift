@@ -88,7 +88,67 @@ class APIResponse {
     class func respostaInteracao(_ jsonInteracao: NSDictionary) -> Bool{
         let json = JSON(jsonInteracao)
         
-        return json["iteracao"].boolValue
+        return json["iteracao"].bool ?? false
+    }
+    
+    class func respostaIncidenteInteracao(_ jsonIncidente: NSDictionary) -> Bool {
+        let json = JSON(jsonIncidente)
+        
+        return json["error"].bool ?? true
+    }
+    
+    var estimativas: [EstimativaUber] = []
+    
+
+    func respostaUberEstimativa(_ jsonUberEstimativa: NSDictionary, completion: @escaping () -> Void) {
+        
+        let json = JSON(jsonUberEstimativa)
+        let prices = json["prices"].arrayValue
+        
+        var displayName = Array<String>()
+        var distanciaMi = Array<Double>()
+        var duracaoSegundos = Array<Int>()
+        var estimativaValor =  Array<String>()
+        
+        for price in prices {
+            let tipoUber = price["localized_display_name"].stringValue
+//            print(displayName)
+            displayName.append(tipoUber)
+            distanciaMi.append(price["distance"].doubleValue)
+            duracaoSegundos.append(price["duration"].intValue)
+            estimativaValor.append(price["estimate"].stringValue)
+        }
+        print(displayName)
+        print(distanciaMi)
+        print(duracaoSegundos)
+        print(estimativaValor)
+        
+        print(type(of: jsonUberEstimativa))
+        if let jsonPrices = jsonUberEstimativa["prices"] as? Array<[String: Any]> {
+            for prices in jsonPrices {
+                let preco = EstimativaUber(dicionario: prices as EstimativaUberJSON)
+                estimativas.append(preco)
+            }
+            
+        }
+        
+        print(estimativas)
+        completion()
+        
+//        let tipoUber = json["prices"][0]["localized_display_name"].stringValue
+//        print(tipoUber)
+//        let distanciaMi = json["prices"][0]["distance"].doubleValue
+//        print(distanciaMi)
+//        let distanciaKm = distanciaMi / 0.62137
+//        print(distanciaKm)
+//        let duracaoSeg = json["prices"][0]["duration"].intValue
+//        print(duracaoSeg)
+//        let duracaoMin = duracaoSeg / 60
+//        print(duracaoMin)
+//        let estimativa = json["prices"][0]["estimate"].stringValue
+//        print(estimativa)
+
     }
     
 }
+

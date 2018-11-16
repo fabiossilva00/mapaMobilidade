@@ -32,12 +32,13 @@ class RetrieveData {
 //                print("Estacoes Latitude ", data.value(forKey: "longitude") as! Double)
 //                print("Estacoes Longitude ", data.value(forKey: "latitude") as! Double)
                 
-                let spot: [String: Any] = ["id": data.value(forKey: "id") as! String, "interacao": false]
+                let spot: [String: Any] = ["id": data.value(forKey: "id") as! String, "interacao": false, "score": 0]
                 
                 let marker = GMSMarker(position: CLLocationCoordinate2D(latitude: data.value(forKey: "latitude") as! Double, longitude: data.value(forKey: "longitude") as! Double))
                 marker.title = data.value(forKey: "nome") as! String
                 marker.snippet = data.value(forKey: "linha") as! String
                 marker.userData = spot
+                marker.icon = UIImage(named: "marker")
                 markerArray.append(marker)
                 
             }
